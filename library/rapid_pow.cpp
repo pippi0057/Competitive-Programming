@@ -1,8 +1,9 @@
+template<int mod>
 int rapid_pow(int x, int n) {
     int ret = 1;
     while (n > 0) {
-        if (n & 1) ret = ret * x;
-        x = x * x;
+        if (n & 1) ret = ret * x % mod;
+        x = x * x % mod;
         n >>= 1;
     }
     return ret;
