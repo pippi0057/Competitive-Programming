@@ -1,3 +1,8 @@
+/**
+ *   高速べき乗 O(log n)
+ *   rapid_pow<mod>(n, m)
+**/
+
 template<int mod>
 int rapid_pow(int x, int n) {
     int ret = 1;
