@@ -1,5 +1,5 @@
 struct UnionFind{
-    vi parent,siz;
+    vector<int> parent,siz;
     UnionFind(int n) : parent(n), siz(n,1){
         for(int i = 0; i < n; i++){
             parent[i] = i;
