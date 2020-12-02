@@ -27,7 +27,7 @@ signed main(){
     setup;
     string s;
     cin >> s;
-    auto solve = [s]() -> bool{
+    auto solve = [s]() -> bool {
         if(s[0] != 'A') return 0;
         if(65 <= s[1] && s[1] <= 90) return 0;
         int temp = 0, ng = 0;
