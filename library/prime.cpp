@@ -1,3 +1,11 @@
+/**
+ *  素数判定 O(sqrt(n))
+ *  is_prime(n)
+ *  
+ *  素数列挙
+ *  
+**/
+
 bool is_prime(int n){
     if (n < 2) return 0;
     else if (n == 2) return 1;
