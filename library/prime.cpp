@@ -2,8 +2,10 @@
  *  素数判定 O(sqrt(n))
  *  is_prime(n)
  *  
- *  素数列挙
- *  
+ *  素数列挙 O(nloglogn)
+ *  prime_list(n)
+ *  nまでの整数が素数か判定してbool型の配列で返す
+ *  (エラトステネスの篩)
 **/
 
 bool is_prime(int n){
