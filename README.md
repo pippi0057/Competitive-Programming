@@ -1,7 +1,9 @@
 # 競プロの提出コード
 
 草生やす用
+
 昔に解いたやつはマクロが意味不明なことになってる可能性アリ
+
 libraryも少しずつ増やす
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/pippi-sniper/Competitive-Programming)
