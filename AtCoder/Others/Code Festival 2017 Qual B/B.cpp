@@ -23,3 +23,26 @@ const int inf = 1e13;
 #define vdb vector<db>
 #define vb vector<bool>
 #define V vector
+
+signed main(){
+    setup;
+    int n, m;
+    vi diff(1000000000, 0);
+    cin >> n;
+    Srep(n){
+        int input;
+        cin >> input;
+        diff[input]++;
+    }
+    cin >> m;
+    Srep(m){
+        int input;
+        cin >> input;
+        if(diff[input]) diff[input]--;
+        else{
+            cout << "NO" << endl;
+            return 0;
+        }
+    }
+    cout << "YES" << endl;
+}
