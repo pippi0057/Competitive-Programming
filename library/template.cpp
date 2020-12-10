@@ -21,3 +21,4 @@ const int inf = 1e13;
 #define vvi vector<vi>
 #define vdb vector<db>
 #define vb vector<bool>
+#define V vector
