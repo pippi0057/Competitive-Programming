@@ -27,7 +27,7 @@ const int inf = 1e13;
 signed main(){
     setup;
     int n, s, t, w, ans = 0;
-    cin >> n >> s >> t >> w;
+    cin >> n >> s >> t >> w;    
     if(s <= w && w <= t) ans++;
     Srep(n-1){
         int input;
