@@ -17,8 +17,16 @@ const int inf = 1e13;
 #define Brep1st(n) for(int bit = 0; bit < (1 << n); bit++)
 #define Brep2nd(n) Srep(n) if(bit >> i & 1)
 #define rep2d(n,m) Srep(n) Lrep(j,0,m)
+#define RoundUp(a,b) ((a) % (b) ? (a) / (b) + 1 : (a) / (b))
 #define vi vector<int>
 #define vvi vector<vi>
 #define vdb vector<db>
 #define vb vector<bool>
 #define V vector
+
+signed main(){
+    setup;
+    int n, k;
+    cin >> n >> k;
+    cout << (n + k - 3) / (k - 1) << endl;
+}
