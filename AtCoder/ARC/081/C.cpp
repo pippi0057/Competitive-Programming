@@ -21,3 +21,22 @@ const int inf = 1e13;
 #define vvi vector<vi>
 #define vdb vector<db>
 #define vb vector<bool>
+
+signed main(){
+    setup;
+    int n;
+    vi edge;
+    vb ok(1e9+100, 0);
+    cin >> n;
+    Srep(n){
+        int input;
+        cin >> input;
+        if(ok[input]){
+            edge.push_back(input);
+            ok[input] = 0;
+        }else ok[input] = 1;
+    }
+    sort(all(edge));
+    if(edge.size()) cout << edge[edge.size()-1] * edge[edge.size()-2] << endl;
+    else cout << 0 << endl;
+}
