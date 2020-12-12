@@ -24,15 +24,25 @@ const int inf = 1e13;
 #define vb vector<bool>
 #define V vector
 
+int divisor_count(int n){
+    int res = 1;
+    for (int i = 2; i * i <= n; i++) {
+        int cnt = 0;
+        while (n % i == 0) {
+            cnt++;
+            n /= i;
+        }
+        res *= (cnt + 1);
+        if(n == 1) break;
+    }
+    if(n != 1) res *= 2;
+    return res;
+}
+
 signed main(){
     setup;
-    while(true){
-        int n, x, ans = 0;
-        cin >> n >> x;
-        if(n == 0 && x == 0) return 0;
-        Lrep(i,1,n-1) Lrep(j,i+1,n) Lrep(k,j+1,n+1){
-            if(i + j + k == x) ans++;
-        }
-        cout << ans << endl;
-    }
+    int n, ans = 0;
+    cin >> n;
+    for(int i = 1; i <= n; i += 2) if(divisor_count(i) == 8) ans++;
+    cout << ans << endl;
 }

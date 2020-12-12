@@ -26,13 +26,13 @@ const int inf = 1e13;
 
 signed main(){
     setup;
-    while(true){
-        int n, x, ans = 0;
-        cin >> n >> x;
-        if(n == 0 && x == 0) return 0;
-        Lrep(i,1,n-1) Lrep(j,i+1,n) Lrep(k,j+1,n+1){
-            if(i + j + k == x) ans++;
-        }
-        cout << ans << endl;
-    }
+    int a, b, c, x, y, ans = inf;
+    cin >> a >> b >> c >> x >> y;
+    Srep(max(x, y)+1){
+        int temp = i * c * 2;
+        temp += max((x - i) * a, (int)0);
+        temp += max((y - i) * b, (int)0);
+        ans = min(ans, temp);
+    } 
+    cout << ans << endl;
 }
