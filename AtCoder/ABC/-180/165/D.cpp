@@ -26,36 +26,7 @@ const int inf = 1e13;
 
 signed main(){
     setup;
-    int n, m;
-    cin >> n >> m;
-    vvi edge(n);
-    vi j(n, 0);
-    vi ans(n, inf);
-    bool ok = 1;
-    j[0] = 1;
-    queue<int> search;
-    search.push(0);
-    Srep(m){
-        int a, b;
-        cin >> a >> b;
-        a--; b--;
-        edge[a].push_back(b);
-        edge[b].push_back(a);
-    }   
-    while(!search.empty()){
-        int now = search.front();
-        search.pop();
-        for(auto i : edge[now]){
-            if(!j[i]){
-                j[i] = 1;
-                ans[i] = now;
-                search.push(i);
-            }
-        }
-    }
-    Srep(n) if(!j[i]) ok = 0;
-    if(ok){
-        cout << "Yes" << endl;
-        Lrep(i,1,n) cout << ans[i] + 1 << endl;
-    }else cout << "No" << endl;
+    int a, b, n;
+    cin >> a >> b >> n;
+    cout << n << endl;
 }
