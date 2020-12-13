@@ -23,28 +23,3 @@ const int inf = 1e13;
 #define vdb vector<db>
 #define vb vector<bool>
 #define V vector
-
-signed main(){
-    setup;
-    int n, a = 0, b = 1, c = 1, d = 2;
-    cin >> n;
-    V<V<char>> s(n, V<char>(n)), t(n, V<char>(n)), _1(n, V<char>(n)), _2(n, V<char>(n)), _3(n, V<char>(n));
-    rep2d(n, n) cin >> s[i][j];
-    rep2d(n, n){
-        cin >> t[i][j];
-        if(s[i][j] != t[i][j]) a++;
-    }
-    for(int i = 0, k = n - 1; i < n; i++, k--){
-        for(int j = 0, l = n - 1; j < n; j++, l--){
-            _1[l][i] = s[i][j];
-            _2[j][k] = s[i][j];
-            _3[i][j] = s[k][l];
-        }
-    }
-    rep2d(n, n){
-        if(_1[i][j] != t[i][j]) b++;
-        if(_2[i][j] != t[i][j]) c++;
-        if(_3[i][j] != t[i][j]) d++;
-    }
-    cout << min(a, min(b, min(c, d))) << endl;
-}
