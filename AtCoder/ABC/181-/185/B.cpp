@@ -33,10 +33,7 @@ signed main(){
         int a, b;
         cin >> a >> b;
         n -= a - now;
-        if(n <= 0){
-            cout << "No" << endl;
-            return 0;
-        }
+        if(n <= 0) return puts("No") & 0;
         now = b;
         n += b - a;
         n = min(n, c);
