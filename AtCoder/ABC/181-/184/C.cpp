@@ -38,10 +38,8 @@ signed main(){
     if(ok(sx, sy, gx, gy)) return puts("1") & 0;
     for(int i = -3; i <= 3; i++){
         for(int j = -3; j <= 3; j++){
-            if(ok(sx, sy, (sx + i), (sy + j))){
-                if(ok((sx + i), (sy + j), gx, gy)){
-                    return puts("2") & 0;
-                }
+            if(ok(sx, sy, (sx + i), (sy + j)) && ok((sx + i), (sy + j), gx, gy)){
+                return puts("2") & 0;
             }
         }
     }
