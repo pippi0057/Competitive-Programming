@@ -23,3 +23,23 @@ const int inf = 1e13;
 #define vdb vector<db>
 #define vb vector<bool>
 #define V vector
+
+signed main(){
+    setup;
+    int n, k;
+    db ans = 0.0;
+    cin >> n >> k;
+    vdb p(n);
+    vdb sum(n+1);
+    sum[0] = 0.0;
+    Srep(n){
+        db input;
+        cin >> input;
+        p[i] = (1 + input) * input / 2.0 / input;
+        sum[i+1] = sum[i] + p[i];
+    }
+    Srep(n-k+1){
+        ans = max(ans, sum[i+k] - sum[i]);
+    }
+    cout << ans << endl;
+}

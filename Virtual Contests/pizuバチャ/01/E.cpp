@@ -23,3 +23,26 @@ const int inf = 1e13;
 #define vdb vector<db>
 #define vb vector<bool>
 #define V vector
+
+signed main(){
+    setup;
+    int n;
+    string s;
+    cin >> s >> n;
+    bool cmd = 1;
+    Srep(n){
+        int q1, q2;
+        string c;
+        cin >> q1;
+        if(q1 == 1){
+            if(cmd) cmd = 0;
+            else cmd = 1;
+            continue;
+        }
+        cin >> q2 >> c;
+        if((q2 == 1 && cmd) || (q2 == 2 && !cmd)) s.insert(0, c);
+        else s += c;
+    }
+    if(!cmd) reverse(all(s));
+    cout << s << endl;
+}

@@ -23,3 +23,52 @@ const int inf = 1e13;
 #define vdb vector<db>
 #define vb vector<bool>
 #define V vector
+
+signed main(){
+    setup;
+    string a, b, c;
+    cin >> a >> b >> c;
+    int ac = 0, bc = 0, cc = 0, cmd = 0;
+    auto aj = [a](int n) -> bool {
+        if(a.size() == n){
+            cout << 'A' << endl;
+            return 1;
+        }
+        return 0;
+    };
+    auto bj = [b](int n) -> bool {
+        if(b.size() == n){
+            cout << 'B' << endl;
+            return 1;
+        }
+        return 0;
+    };
+    auto cj = [c](int n) -> bool {
+        if(c.size() == n){
+            cout << 'C' << endl;
+            return 1;
+        }
+        return 0;
+    };
+    while(true){
+        if(cmd == 0){
+            if(aj(ac)) return 0;
+            if(a[ac] == 'a') cmd = 0;
+            else if(a[ac] == 'b') cmd = 1;
+            else cmd = 2;
+            ac++;
+        }else if(cmd == 1){
+            if(bj(bc)) return 0;
+            if(b[bc] == 'a') cmd = 0;
+            else if(b[bc] == 'b') cmd = 1;
+            else cmd = 2;
+            bc++;
+        }else{
+            if(cj(cc)) return 0;
+            if(c[cc] == 'a') cmd = 0;
+            else if(c[cc] == 'b') cmd = 1;
+            else cmd = 2;
+            cc++;
+        }
+    }
+}
