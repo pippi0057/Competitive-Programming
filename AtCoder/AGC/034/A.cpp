@@ -26,13 +26,9 @@ const int inf = 1e13;
 
 signed main(){
     setup;
-    int n, k;
-    cin >> n >> k;
-    vi dp(n+100, inf), h(n);
-    dp[0] = 0;
-    Srep(n) cin >> h[i];
-    Srep(n){
-        Lrep(j,1,k+1) dp[i+j] = min(dp[i+j], dp[i] + abs(h[i] - h[i+j]));
-    }
-    cout << dp[n-1] << endl;
+    int n, a, b, c, d;
+    string s;
+    cin >> n >> a >> b >> c >> d >> s;
+    a--; b--; c--; d--;
+    Lrep(i,a,c+1) 
 }
