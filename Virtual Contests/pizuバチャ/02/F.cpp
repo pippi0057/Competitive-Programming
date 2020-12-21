@@ -33,22 +33,18 @@ signed main(){
     Srep(m){
         int p, y;
         cin >> p >> y;
-        p--;
-        sort_array[p].push_back(P(y, i));
+        sort_array[p-1].push_back(P(y, i));
     }
     Srep(n) sort(all(sort_array[i]));
     Srep(n){
-        int temp = 1;
         Lrep(j,0,sort_array[i].size()){
             ans[sort_array[i][j].S].F = i + 1;
-            ans[sort_array[i][j].S].S = temp;
-            temp++;
+            ans[sort_array[i][j].S].S = j + 1;
         }
     }
     Srep(m){
-        string left = "000000", right = "000000";
-        left += to_string(ans[i].F);
-        right += to_string(ans[i].S);
+        string left = "000000" + to_string(ans[i].F),
+            right = "000000" + to_string(ans[i].S);
         cout << left.substr(left.size() - 6, 6)
             << right.substr(right.size() - 6, 6) << endl;
     }
