@@ -27,7 +27,7 @@ const int inf = 1e13;
 signed main(){
     setup;
     int n, m;
-    vi diff(1000000000, 0);
+    map<int, int> diff;
     cin >> n;
     Srep(n){
         int input;
@@ -38,8 +38,8 @@ signed main(){
     Srep(m){
         int input;
         cin >> input;
-        if(diff[input]) diff[input]--;
-        else{
+        diff[input]--;
+        if(diff[input] < 0){
             cout << "NO" << endl;
             return 0;
         }
