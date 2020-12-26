@@ -26,20 +26,15 @@ const int inf = 1e13;
 signed main(){
     setup;
     int n, m;
-    n--;
-    set<int> p;
     cin >> n >> m;
+    vb a(n), b(n);
     Srep(m){
-        int a, b;
-        cin >> a >> b;
-        a--; b--;
-        if(a == 0){
-            auto j = p.insert(b);
-            if(!j.S) return puts("POSSIBLE") & 0;
-        }else if(b == n){
-            auto j = p.insert(a);
-            if(!j.S) return puts("POSSIBLE") & 0;
-        }
+        int c, d;
+        cin >> c >> d;
+        c--; d--;
+        if(c == 0) a[d] = 1;
+        if(d == n - 1) b[c] = 1;
     }
+    Srep(n) if(a[i] && b[i]) return puts("POSSIBLE") & 0;
     cout << "IMPOSSIBLE" << endl;
 }
