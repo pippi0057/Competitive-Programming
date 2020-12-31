@@ -1,14 +1,14 @@
-// gotoキャンペーン
-// 模範的なスパゲッティコード
 #include <bits/stdc++.h>
 using namespace std;
-const double pi = 3.14159265358979;
 #define int long long int
+const double pi = 3.14159265358979;
+const int inf = 1e13;
+#define setup cin.tie(0); ios::sync_with_stdio(false); cout << setprecision(20) << fixed;
 #define db double
-#define ldb long double
 #define P pair<int,int>
 #define F first
 #define S second
+#define endl "\n"
 #define dtor(deg) (((deg)/360)*2*pi)
 #define rtod(rad) (((rad)/2/pi)*360)
 #define all(a) a.begin(),a.end()
@@ -17,44 +17,79 @@ const double pi = 3.14159265358979;
 #define Brep1st(n) for(int bit = 0; bit < (1 << n); bit++)
 #define Brep2nd(n) Srep(n) if(bit >> i & 1)
 #define rep2d(n,m) Srep(n) Lrep(j,0,m)
+#define RoundUp(a,b) ((a) % (b) ? (a) / (b) + 1 : (a) / (b))
 #define vi vector<int>
+#define vm vector<mint>
 #define vvi vector<vi>
-#define vc vector<char>
-#define vvc vector<vc>
+#define vdb vector<db>
+#define vb vector<bool>
+#define V vector
 
-int n, ans = 0, sum = 0, i = 0, temp, c;
-vi a;
+template <int64_t mod> class modint {
+    using ll = int64_t;
+public:
+    ll x;
+    modint(ll x = 0) : x(((x % mod) + mod) % mod) {}
+    modint operator+(const modint& y) { return modint(*this) += y; }
+    modint operator-(const modint& y) { return modint(*this) -= y; }
+    modint operator*(const modint& y) { return modint(*this) *= y; }
+    modint operator/(const modint& y) { return modint(*this) /= y; }
+    modint operator+=(const modint& y) {
+        x += y.x;
+        if (x >= mod) x -= mod;
+        return *this;
+    }
+    modint& operator-=(const modint& y) {
+        if (x < y.x) x += mod;
+        x -= y.x;
+        if(x >= mod) x -= mod;
+        return *this;
+    }
+    modint& operator*=(const modint& y) {
+        x = x * y.x % mod;
+        return *this;
+    }
+    modint& operator/=(const modint& y) {
+        modint y_t = y;
+        return *this = y_t.inv(*this);
+    }
+    friend ostream& operator << (ostream& os, const modint<mod>& modout) {
+        return os << modout.x;
+    }
+    friend istream& operator >> (istream& is, modint<mod>& modin) {
+        ll temp;
+        is >> temp;
+        modin.x = temp;
+        return is;
+    }
+    modint inv(modint& ret) { return pow(mod - 2, ret); }
+    modint pow(ll y, modint& ret) {
+        if (!y) return 1;
 
-int32_t main(){
-    goto start;
-    out:;
-    cout << ans << endl;
-    return 0;
-    solve:;
-    sum -= a[i];
-    temp = sum % 1000000007;
-    ans += temp * a[i];
-    ans %= 1000000007;
-    i++;
-    if(i < n - 1) goto solve;
-    else goto out;
-    in:;
-    input:;
-    cin >> c;
-    a.push_back(c);
-    i++;
-    if(i < n) goto input;
-    i = 0;
-    goto sm;
-    start:;
+        while (y > 0) {
+            if (y & 1) ret.x = ret.x * x % mod;
+            x = x * x % mod;
+            y >>= 1;
+        }
+        return ret;
+    }
+};
+
+using mint = modint<1000000007>;
+
+signed main(){
+    setup;
+    int n;
+    mint sum = 0, ans = 0;
     cin >> n;
-    i = 0;
-    goto in;
-    sm:;
-    takesum:;
-    sum += a[i];
-    i++;
-    if(i < n) goto takesum;
-    i = 0;
-    goto solve;
-}   
+    vm a(n);
+    Srep(n){
+        cin >> a[i];
+        sum += a[i];
+    }
+    Srep(n-1){
+        sum -= a[i];
+        ans += a[i] * sum;
+    }
+    cout << ans << endl;
+}
