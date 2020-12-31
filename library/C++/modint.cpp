@@ -2,7 +2,7 @@ template <int64_t mod> class modint {
     using ll = int64_t;
 public:
     ll x;
-    modint(ll x = 0) : x((x% mod + mod) % mod) {}
+    modint(ll x = 0) : x((x % mod + mod) % mod) {}
     modint operator+(const modint& y) { return modint(*this) += y; }
     modint operator-(const modint& y) { return modint(*this) -= y; }
     modint operator*(const modint& y) { return modint(*this) *= y; }
