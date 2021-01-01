@@ -19,6 +19,7 @@ const int inf = 1e13;
 #define rep2d(n,m) Srep(n) Lrep(j,0,m)
 #define RoundUp(a,b) ((a) % (b) ? (a) / (b) + 1 : (a) / (b))
 #define vi vector<int>
+#define vm vector<mint>
 #define vvi vector<vi>
 #define vdb vector<db>
 #define vb vector<bool>
