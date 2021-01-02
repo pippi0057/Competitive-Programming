@@ -3,26 +3,26 @@ template <int64_t mod> class modint {
 public:
     ll x;
     modint(ll x = 0) : x((x % mod + mod) % mod) {}
-    modint operator+(const modint& y) { return modint(*this) += y; }
-    modint operator-(const modint& y) { return modint(*this) -= y; }
-    modint operator*(const modint& y) { return modint(*this) *= y; }
-    modint operator/(const modint& y) { return modint(*this) /= y; }
-    modint operator+=(const modint& y) {
+    modint operator + (const modint& y) { return modint(*this) += y; }
+    modint operator - (const modint& y) { return modint(*this) -= y; }
+    modint operator * (const modint& y) { return modint(*this) *= y; }
+    modint operator / (const modint& y) { return modint(*this) /= y; }
+    modint operator += (const modint& y) {
         x += y.x;
         if (x >= mod) x -= mod;
         return *this;
     }
-    modint& operator-=(const modint& y) {
+    modint& operator -= (const modint& y) {
         if (x < y.x) x += mod;
         x -= y.x;
         if(x >= mod) x -= mod;
         return *this;
     }
-    modint& operator*=(const modint& y) {
+    modint& operator *= (const modint& y) {
         x = x * y.x % mod;
         return *this;
     }
-    modint& operator/=(const modint& y) {
+    modint& operator /= (const modint& y) {
         modint y_t = y;
         return *this = y_t.inv(*this);
     }
