@@ -3,7 +3,6 @@ using namespace std;
 #define int long long int
 const double pi = 3.14159265358979;
 const int inf = 1e13;
-#define db double
 #define endl "\n"
 #define dtor(deg) (((deg)/360)*2*pi)
 #define all(a) a.begin(),a.end()
