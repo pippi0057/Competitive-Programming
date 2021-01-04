@@ -14,6 +14,8 @@ const int inf = 1e13;
 #define rep4(i,a,b,c) for(int i = (a); i < (b); i += (c))
 #define rep(...) overload(__VA_ARGS__,rep4,rep3,rep2,rep1)(__VA_ARGS__)
 #define vec(type,name,...) vector<type> name(__VA_ARGS__)
+struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
+using Graph = vector<vector<Edge>>;
 
 void Main(){
 
