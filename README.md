@@ -4,7 +4,7 @@
 
 昔に解いたやつはマクロが意味不明なことになってる可能性アリ
 
-libraryも少しずつ増やす
+ライブラリも少しずつ増やす
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/pippi-sniper/Competitive-Programming)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pippi-sniper/Competitive-Programming)
