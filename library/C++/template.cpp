@@ -17,12 +17,13 @@ struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-
+    
 }
 
 signed main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
     cout << setprecision(20) << fixed;
+    //int n; cin >> n; rep(n)
     Main();
 }
