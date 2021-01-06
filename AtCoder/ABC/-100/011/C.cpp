@@ -22,6 +22,8 @@ struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
+    int n, a, b, c;
+    cin >> n >> a >> b >> c;
     
 }
 
