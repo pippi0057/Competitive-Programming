@@ -3,6 +3,7 @@ using namespace std;
 #define int long long int
 const double pi = 3.14159265358979;
 const int inf = 1e13;
+#define pii pair<int,int>
 #define endl "\n"
 #define dtor(deg) (((deg)/360)*2*pi)
 #define all(a) a.begin(),a.end()
@@ -21,6 +22,8 @@ const int inf = 1e13;
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
 struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
+template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return true; } return false; }
+template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return true; } return false; }
 
 void Main(){
     
