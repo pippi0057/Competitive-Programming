@@ -22,8 +22,8 @@ const int inf = 1e13;
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
 struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
-template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return true; } return false; }
-template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return true; } return false; }
+template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
+template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
     
