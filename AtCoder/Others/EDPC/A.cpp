@@ -1,37 +1,47 @@
-#include<stdio.h>
-#include<iostream>
-#include<string>
-#include<vector>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<bitset>
-
-#define Vsort(a) sort(a.begin(), a.end())
-#define Vreverse(a) reverse(a.bigin(), a.end())
-#define Srep(n) for(int i = 0; i < (n); i++)
-#define rep(i,n) for(int i = 0; i < (n); i++)
-#define Lrep(i,a,n) for(int i = (a); i < (n); i++)
-#define vi vector<int>
-#define vi64 vector<int64_t>
-#define vvi vector<vi>
-#define vvi64 vector<vi64>
-
+#include <bits/stdc++.h>
 using namespace std;
+#define int long long int
+const double pi = 3.14159265358979;
+const int inf = 1e13;
+#define pii pair<int,int>
+#define endl "\n"
+#define dtor(deg) (((deg)/360)*2*pi)
+#define all(a) a.begin(),a.end()
+#define overload(_1,_2,_3,_4,name,...) name
+#define _rep1(n) for(int i = 0; i < (n); i++)
+#define _rep2(i,n) for(int i = 0; i < (n); i++)
+#define _rep3(i,a,b) for(int i = (a); i < (b); i++)
+#define _rep4(i,a,b,c) for(int i = (a); i < (b); i += (c))
+#define rep(...) overload(__VA_ARGS__,_rep4,_rep3,_rep2,_rep1)(__VA_ARGS__)
+#define _rrep1(n) for(int i = (n) - 1; i >= 0; i--)
+#define _rrep2(i,n) for(int i = (n) - 1; i >= 0; i--)
+#define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
+#define rrep(...) overload(__VA_ARGS__,_null,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
+#define vec(type,name,...) vector<type> name(__VA_ARGS__)
+#define vv(type,name,size,...) vector<vector<type>> name(size,vector<int>(__VA_ARGS__))
+#define ForEach(a,b) for_each(a.begin(),a.end(),b)
+struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
+using Graph = vector<vector<Edge>>;
+template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
+template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
-int main(){
+void Main(){
     int n;
     cin >> n;
-    vi h(n),dp(n);
-    Srep(n) cin >> h[i];
+    vec(int, h, n);
+    vec(int, dp, n);
+    rep(n) cin >> h[i];
     dp[0] = 0;
     dp[1] = abs(h[0] - h[1]);
-    Lrep(i,2,n){
-        if(dp[i-1] + abs(h[i] - h[i-1]) < dp[i-2] + abs(h[i] - h[i-2])){
-            dp[i] = dp[i-1] + abs(h[i] - h[i-1]);
-        }else{
-            dp[i] = dp[i-2] + abs(h[i] - h[i-2]);
-        }
-    }
+    rep(i, 2, n)
+        dp[i] = min(dp[i-1] + abs(h[i] - h[i-1]), dp[i-2] + abs(h[i] - h[i-2]));
     cout << dp[n-1] << endl;
+}
+
+signed main(){
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    cout << setprecision(10) << fixed;
+    //int n; cin >> n; rep(n)
+    Main();
 }
