@@ -29,7 +29,9 @@ void Main(){
     int N, W;
     cin >> N >> W;
     vv(int, dp, 100, 100100);
-    
+    vector<pair<int,int>> in(n);
+    rep(n) cin >> in[i].first >> in[i].second;
+    rep(n)
 }
 
 signed main(){
