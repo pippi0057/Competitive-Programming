@@ -2,8 +2,12 @@
 a = int(input())
 
 
-# a b(整数を入力)
+# a b(整数)を入力
 a, b = map(int, input().split())
+
+# a b c(整数)
+a, b, c = map(int, input().split())
+
 
 # a
 # b
