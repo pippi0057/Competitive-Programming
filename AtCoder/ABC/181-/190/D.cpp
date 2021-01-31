@@ -25,32 +25,24 @@ using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
-int ok(int a, int b){
-    if((a / 2) % 2 == 1 && (b / 2) % 2 == 1){
-        if(a == b) return 1;
-        return 2;
-    }
-    if((a / 2) % 2 == 1) return 1;
-    if((b / 2) % 2 == 1) return 1;
-    if(a % 4 == 0 && b % 2 == 1) return 1;
-    if(a % 2 == 1 && b % 4 == 0) return 1;
-    return 0;
-}
-
-int solve(int n){
-    int res = 0, cnt = 0;
-    for(int i = 1; i * i <= n * 4; i++){
-        if((n * 4) % i == 0){
-            res += ok(i, (n * 4) / i);
-        }
-    }
-    return res;
-}
-
 void Main(){
-    int n;
+    int n, ans = 0;
     cin >> n;
-    cout << solve(n) << endl;
+    auto solve = [](int a, int b) -> int{
+        if((a / 2) % 2 == 1 && (b / 2) % 2 == 1){
+            if(a == b) return 1;
+            return 2;
+        }
+        if((a / 2) % 2 == 1) return 1;
+        if((b / 2) % 2 == 1) return 1;
+        if(a % 4 == 0 && b % 2 == 1) return 1;
+        if(a % 2 == 1 && b % 4 == 0) return 1;
+        return 0;
+    };
+    for(int i = 1; i * i <= n * 4; i++){
+        if((n * 4) % i == 0) ans += solve(i, (n * 4) / i);
+    }
+    cout << ans << endl;
 }
 
 signed main(){
@@ -60,3 +52,4 @@ signed main(){
     //int n; cin >> n; rep(n)
     Main();
 }
+
