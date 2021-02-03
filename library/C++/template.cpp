@@ -3,6 +3,8 @@ using namespace std;
 #define int long long int
 const double pi = 3.14159265358979;
 const int inf = 1e13;
+const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
+const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
 #define endl "\n"
 #define dtor(deg) (((deg)/360)*2*pi)
@@ -18,7 +20,7 @@ const int inf = 1e13;
 #define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
 #define rrep(...) overload(__VA_ARGS__,_null,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
 #define vec(type,name,...) vector<type> name(__VA_ARGS__)
-#define vv(type,name,size,...) vector<vector<type>> name(size,vector<int>(__VA_ARGS__))
+#define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
 struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
