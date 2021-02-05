@@ -14,7 +14,7 @@ template <class T> struct BIT{
     }
     T sum(int ind){
         T res = 0;
-        for(int i = ind; i >= 0; i -= ((i+1) & (-i-1)))
+        for(int i = ind-1; i >= 0; i -= ((i+1) & (-i-1)))
             res += bit[i];
         return res;
     }
