@@ -4,8 +4,11 @@
  *  負の辺があったら使えない
 **/
 
+#define pii pair<int,int>
+struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
+using Graph = vector<vector<Edge>>;
+
 vector<int> dijkstra(const Graph &g, int s){
-    using pii = pair<int,int>;
     int n = g.size();
     vector<int> dist(n, inf);
     priority_queue<pii,vector<pii>,greater<pii>> task;
