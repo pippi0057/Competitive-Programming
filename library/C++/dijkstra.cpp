@@ -1,7 +1,7 @@
 /**
- * 
- * 
- * 
+ *  dijkstra((グラフ名), (始点))
+ *  O(e logv)
+ *  負の辺があったら使えない
 **/
 
 vector<int> dijkstra(const Graph &g, int s){
