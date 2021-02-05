@@ -5,6 +5,7 @@
 **/
 
 vector<int> dijkstra(const Graph &g, int s){
+    using pii = pair<int,int>;
     int n = g.size();
     vector<int> dist(n, inf);
     priority_queue<pii,vector<pii>,greater<pii>> task;
