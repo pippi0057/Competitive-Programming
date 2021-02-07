@@ -27,11 +27,51 @@ using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
+vector<int> dijkstra(const Graph &g, int s){
+    int n = g.size();
+    vector<int> dist(n, inf);
+    priority_queue<pii,vector<pii>,greater<pii>> task;
+    dist[s] = 0;
+    task.push(pii(dist[s], s));
+    while(task.size()){
+        pii p = task.top();
+        task.pop();
+        int v = p.second;
+        if(dist[v] < p.first) continue;
+        for(auto e : g[v]) {
+            if(dist[e.to] > dist[v] + e.cost){
+                dist[e.to] = dist[v] + e.cost;
+                task.push(pii(dist[e.to], e.to));
+            }
+        }
+    }
+    return dist;
+}
+
 void Main(){
-    int v, t, s, d;
-    cin >> v >> t >> s >> d;
-    if(d < t * v || s * v < d) cout << "Yes" << endl;
-    else cout << "No" << endl;
+    int n, m;
+    cin >> n >> m;
+    Graph g(n), r(n);
+    vector<vector<int>> cir(n);
+    rep(m){
+        int a, b, c;
+        cin >> a >> b >> c;
+        a--; b--;
+        g[a].push_back(Edge(b, c));
+        r[b].push_back(Edge(a, c));
+        if(a == b) cir[a].push_back(c);
+    }
+    rep(n){
+        int ans = inf;
+        vector<int> time = dijkstra(g, i), time_r = dijkstra(r, i);
+        rep(j, n){
+            if(j == i) continue;
+            chmin(ans, time[j] + time_r[j]);
+        }
+        rep(j, cir[i].size()) chmin(ans, cir[i][j]);
+        if(ans == inf) cout << -1 << endl;
+        else cout << ans << endl;
+    }
 }
 
 signed main(){
