@@ -32,6 +32,7 @@ public:
     friend istream& operator >> (istream& is, modint<mod>& modin) {
         ll temp;
         is >> temp;
+        temp = (temp % mod + mod) % mod;
         modin.x = temp;
         return is;
     }
