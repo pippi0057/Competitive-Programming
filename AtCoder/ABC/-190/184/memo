@@ -1,0 +1,14 @@
+
+        if(a[nx][ny] != '.' && !done[a[nx][ny]-'a']){
+            done[a[nx][ny]-'a'] = 1;
+            for(auto i : p[a[nx][ny]-'a']){
+                int next_x = i.first, next_y = i.second;
+                if(nx == next_x && ny == next_y) continue;
+                if(ok(next_x, next_y)){
+                    dist[next_x][next_y] = dist[nx][ny] + 1;
+                    task.push({next_x, next_y});
+                }
+            }
+        }else{
+            
+        }
