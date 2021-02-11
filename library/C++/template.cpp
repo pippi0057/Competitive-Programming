@@ -35,6 +35,5 @@ signed main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
     cout << setprecision(10) << fixed;
-    //int n; cin >> n; rep(n)
     Main();
 }
