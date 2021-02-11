@@ -6,6 +6,6 @@ int sum_digit(int n){
 }
 
 int digit(int n){
-    while( n >= 10 ) n = sum_digit(n);
+    while(n >= 10) n = sum_digit(n);
     return n;
 }

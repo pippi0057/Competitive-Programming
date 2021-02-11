@@ -8,6 +8,8 @@
 struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
+// pii, Edge, Graph
+
 vector<int> dijkstra(const Graph &g, int s){
     int n = g.size();
     vector<int> dist(n, inf);
