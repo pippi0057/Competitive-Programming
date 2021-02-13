@@ -28,17 +28,22 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int l, r, temp;
-    cin >> l >> r;
-    temp = max((int)0, r - (l + l) + 1);
-    cout << (temp + 1) * temp / 2 << endl;
+    string s;
+    cin >> s;
+    set<char> c;
+    for(auto i : s){
+        auto j = c.insert(i);
+        if(!j.second){
+            cout << "no" << endl;
+            return;
+        }
+    }
+    cout << "yes" << endl;
 }
 
 signed main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
     cout << setprecision(10) << fixed;
-    int n;
-    cin >> n;
-    rep(n) Main();
+    Main();
 }
