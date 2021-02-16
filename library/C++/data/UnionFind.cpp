@@ -1,25 +1,17 @@
 struct UnionFind{
-    vector<int> parent,siz;
-    UnionFind(int n) : parent(n), siz(n,1){
-        for(int i = 0; i < n; i++){
-            parent[i] = i;
-        }
+    using ll = int64_t;
+    vector<ll> data;
+    UnionFind(ll n): data(n, -1){}
+    bool unite(ll a, ll b){
+        a = root(a); b = root(b);
+        if(a == b) return 0;
+        if(data[a] > data[b]) swap(a, b);
+        data[a] += data[b];
+        data[b] = a;
+        return 1;
     }
-    int root(int x){
-        while(parent[x] != x){
-            x = parent[x] = parent[parent[x]];
-        }
-        return x;
-    }
-    bool unite(int x, int y){
-        x = root(x);
-        y = root(y);
-        if(x == y) return false;
-        if(siz[x] < siz[y]) swap(x,y);
-        siz[x] += siz[y];
-        parent[y] = x;
-        return true;
-    }
-    bool same(int x, int y) {return root(x) == root(y); }
-    int size(int x) {return siz[root(x)]; }
+    bool find(ll a, ll b){ return root(a) == root(b); }
+    ll root(ll a){ return data[a] < 0 ? a : data[a] = root(data[a]); }
+    ll size(ll a){ return -data[root(a)]; }
+    ll operator[](ll a){ return root(a); }
 };
