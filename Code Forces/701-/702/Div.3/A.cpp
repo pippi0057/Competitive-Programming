@@ -29,12 +29,22 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    
+    int n, ans = 0;
+    cin >> n;
+    vec(int, a, n);
+    rep(n) cin >> a[i];
+    rep(n-1){
+        int temp = min(a[i], a[i+1]);
+        while(temp * 2 < max(a[i], a[i+1])) temp *= 2;
+    }
+    cout << ans << endl;
 }
 
 signed main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
     cout << setprecision(10) << fixed;
-    Main();
+    int n;
+    cin >> n;
+    rep(n) Main();
 }
