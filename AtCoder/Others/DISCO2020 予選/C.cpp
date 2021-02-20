@@ -29,8 +29,8 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int h, w, k, cnt = 1;
-    cin >> h >> w >> k;
+    int h, w, a, cnt = 1;
+    cin >> h >> w >> a;
     vv(bool, cake, h, w);
     vv(int, ans, h, w);
     vector<int> hs;
@@ -39,25 +39,28 @@ void Main(){
         cin >> input;
         cake[i][j] = input == '#';
     }
-    {
-        bool fi = 1;
-        hs.push_back(0);
-        rep(h){
-            rep(j,w) if(cake[i][j]){ if(fi){ fi = 0; }else{ hs.push_back(i); }}
-        }
+    hs.push_back(0);
+    rep(h){
+        bool ok = 0;
+        rep(j,w) if(cake[i][j]) ok = 1;
+        if(ok) hs.push_back(i+1);
     }
+    if(hs[hs.size()-1] != h) hs.push_back(h);
     rep(hs.size()-1){
+        int fin = 0;
         vector<int> ws;
-        bool fi = 1;
         ws.push_back(0);
         rep(j,w){
-            rep(k,hs[i],hs[i+1]) if(cake[k][j]){ if(fi){ fi = 0; }else{ ws.push_back(j); }}
+            bool ok = 0;
+            rep(k,hs[i],hs[i+1]) if(cake[k][j]){ ok = 1; fin = j; }
+            if(ok) ws.push_back(j+1);
         }
+        if(ws[ws.size()-1] != w) ws.push_back(w);
         rep(j,ws.size()-1){
             rep(k,hs[i],hs[i+1]) rep(l,ws[j],ws[j+1]) ans[k][l] = cnt;
-            cnt++;
+            if(ws[j] != fin) cnt++;
+            cout << ws[j] << " ";
         }
-        rep(j,ws.size()) cout << ws[j] << " ";
         cout << endl;
     }
     rep(h){
