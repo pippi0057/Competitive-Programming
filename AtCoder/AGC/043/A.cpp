@@ -29,23 +29,21 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int n, m, k, ans = 0;
-    cin >> n >> m >> k;
-    int r = m;
-    vec(int, a, n);
-    vec(int, b, m);
-    vec(int, sa, n+1);
-    vec(int, sb, m+1);
-    rep(n) cin >> a[i];
-    rep(m) cin >> b[i];
-    rep(n) sa[i+1] = sa[i] + a[i];
-    rep(m) sb[i+1] = sb[i] + b[i];
-    for(int l = 0, r = m; l <= n; l++){
-        if(sa[l] > k) break;
-        while(0 <= r && sa[l] + sb[r] > k) r--;
-        chmax(ans, l + r);
+    int h, w;
+    cin >> h >> w;
+    vv(bool, s, h, w);
+    vv(int, dp, h, w, inf);
+    rep(h) rep(j,w){
+        char input;
+        cin >> input;
+        s[i][j] = (input == '#');
     }
-    cout << ans << endl;
+    dp[0][0] = s[0][0] ? 1 : 0;
+    rep(h) rep(j,w){
+        rep(k,i+1,h) chmin(dp[k][j], (!s[k-1][j] && s[k][j] ? dp[k-1][j] + 1 : dp[k-1][j]));
+        rep(k,j+1,w) chmin(dp[i][k], (!s[i][k-1] && s[i][k] ? dp[i][k-1] + 1 : dp[i][k-1]));
+    }
+    cout << dp[h-1][w-1] << endl;
 }
 
 signed main(){
