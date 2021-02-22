@@ -4,18 +4,17 @@
  *  負の辺があったら使えない
 **/
 
-#define pii pair<int,int>
-struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
+struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 // pii, Edge, Graph
 
-vector<int> dijkstra(const Graph &g, int s){
+vector<ll> dijkstra(const Graph &g, int s){
     int n = g.size();
-    vector<int> dist(n, inf);
-    priority_queue<pii,vector<pii>,greater<pii>> task;
+    vector<ll> dist(n, inf);
+    priority_queue<pair<ll,int>,vector<pair<ll,int>>,greater<pair<ll,int>>> task;
     dist[s] = 0;
-    task.push(pii(dist[s], s));
+    task.push({dist[s], s});
     while(task.size()){
         pii p = task.top();
         task.pop();
@@ -24,7 +23,7 @@ vector<int> dijkstra(const Graph &g, int s){
         for(auto e : g[v]) {
             if(dist[e.to] > dist[v] + e.cost){
                 dist[e.to] = dist[v] + e.cost;
-                task.push(pii(dist[e.to], e.to));
+                task.push({dist[e.to], e.to});
             }
         }
     }
