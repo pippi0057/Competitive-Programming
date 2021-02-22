@@ -28,8 +28,35 @@ using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
+int divisor_count(int n){
+    int res = 1;
+    for (int i = 2; i * i <= n; i++) {
+        int cnt = 0;
+        while (n % i == 0) {
+            cnt++;
+            n /= i;
+        }
+        res *= (cnt + 1);
+        if(n == 1) break;
+    }
+    if(n != 1) res *= 2;
+    return res;
+}
+
 void Main(){
-    
+    int n, ans = 0;
+    cin >> n;
+    for(int a = 1; a <= n; a++){
+        if(a > n) break;
+        for(int b = 1; b <= n; b++){
+            if(a * b > n) break;
+            for(int c = 1; c <= n; c++){
+                if(a * b * c > n) break;
+                ans++;
+            }
+        }
+    }
+    cout << ans << endl;
 }
 
 signed main(){

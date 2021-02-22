@@ -28,8 +28,20 @@ using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
+int mow(int x, int n, int mod) {
+    int ret = 1;
+    while (n > 0) {
+        if (n & 1) ret = ret * x % mod;
+        x = x * x % mod;
+        n >>= 1;
+    }
+    return ret;
+}
+
 void Main(){
-    
+    int a, b, c;
+    cin >> a >> b >> c;
+    cout << mow(a, (mow(b, c, 1000000000) == 0 ? 1000000000 : mow(b, c, 1000000000)), 10) << endl;
 }
 
 signed main(){

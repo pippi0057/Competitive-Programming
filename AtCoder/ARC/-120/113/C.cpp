@@ -29,7 +29,20 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    
+    int ans = 0, n;
+    vec(int, buc, 26);
+    string s;
+    cin >> s;
+    n = s.size();
+    for(int i = n - 1; i >= 2; i--){
+        buc[s[i]-'a']++;
+        if(s[i] != s[i-1] && s[i-1] == s[i-2]){
+            ans += n - i - buc[s[i-2]-'a'];
+            rep(j,26) buc[j] = 0;
+            buc[s[i-2]-'a'] = n - i;
+        }
+    }
+    cout << ans << endl;
 }
 
 signed main(){
