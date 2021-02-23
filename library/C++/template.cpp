@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
+#define ll long long int
 const double pi = 3.14159265358979;
-const int inf = 1e17;
+const ll inf = 1e17;
 const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
 const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
+#define pll pair<ll,ll>
 #define endl "\n"
 #define dtor(deg) (((deg)/360)*2*pi)
 #define all(a) a.begin(),a.end()
@@ -23,7 +24,7 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define vec(type,name,...) vector<type> name(__VA_ARGS__)
 #define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
-struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
+struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
