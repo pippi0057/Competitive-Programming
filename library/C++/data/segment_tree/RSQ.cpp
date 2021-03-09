@@ -1,8 +1,3 @@
-/*
- * 単機能RSQ
- * sum、addのみ
-**/
-
 struct RSQ{
     using ll = long long;
     const ll seg_len = 1 << 20;
