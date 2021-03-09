@@ -20,7 +20,8 @@ vector<ll> dijkstra(const Graph &g, int s){
         task.pop();
         int v = p.second;
         if(dist[v] < p.first) continue;
-        for(auto e : g[v]) if(chmin(dist[e.to], dist[v] + e.cost)) task.push({dist[e.to], e.to});
+        for(auto e : g[v])
+            if(chmin(dist[e.to], dist[v] + e.cost)) task.push({dist[e.to], e.to});
     }
     return dist;
 }
