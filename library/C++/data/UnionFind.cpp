@@ -1,5 +1,4 @@
 struct UnionFind{
-    using ll = int64_t;
     vector<ll> data;
     UnionFind(ll n): data(n, -1){}
     bool unite(ll a, ll b){
