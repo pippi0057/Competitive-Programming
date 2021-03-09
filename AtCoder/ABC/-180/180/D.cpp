@@ -30,15 +30,9 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    ll x, y, a, b, ans = 0;
+    ll x, y, a, b;
     cin >> x >> y >> a >> b;
-    while(true){
-        if(x * (a - 1) > b) break;
-        if(x > y){ cout << ans - 1 << endl; return; }
-        x *= a;
-        ans++;
-    }
-    cout << ans + (y - x - 1) / b << endl;
+    
 }
 
 signed main(){
