@@ -30,9 +30,10 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    long double n;
+    double ans = 0, n;
     cin >> n;
-    cout << pow(n, n - 1) / (n - 1) << endl;
+    for(double i = 1; i < n; i++) ans += n / i;
+    cout << ans << endl;
 }
 
 signed main(){
