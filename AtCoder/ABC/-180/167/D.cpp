@@ -30,24 +30,7 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int n, now = 0;
-    ll k;
-    cin >> n >> k;
-    vector<int> a(n);
-    vector<int> loop;
-    set<int> seen;
-    rep(n){ cin >> a[i]; a[i]--; }
-    loop.push_back(0);
-    seen.insert(0);
-    while(true){
-        now = a[now];
-        if(seen.find(now) != seen.end()) break;
-        seen.insert(now);
-        loop.push_back(now);
-    }
-    int m = loop.size();
-    for(auto i : loop) cout << i << endl;
-    cout << loop[] << endl;
+    int n;
 }
 
 signed main(){
