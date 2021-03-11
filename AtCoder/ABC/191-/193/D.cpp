@@ -31,41 +31,25 @@ template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0
 
 void Main(){
     int k;
-    double a = 0, b;
+    ll win = 0, sum = 0;
     string s, t;
     cin >> k >> s >> t;
     vector<int> card(9, k);
-    vector<int> A(9);
-    vector<int> B(9);
-    s = s.substr(0, 4);
-    t = t.substr(0, 4);
-    for(auto x : s){ card[x - '1']--; A[x - '1']++; }
-    for(auto x : t){ card[x - '1']--; B[x - '1']++; }
-    int temp = 0;
-    rep(9) temp += card[i];
-    b = (temp) * (temp - 1) / 2;
+    rep(4){ card[s[i]-49]--; card[t[i]-49]--; A[s[i]-49]++; B[t[i]-49]++; }
+    B = (9 * k - 8) * (9 * k - 9);
     auto ok = [card](int a, int b) -> bool{
         if(a == b) return card[a] >= 2;
         else return card[a] >= 1 && card[b] >= 1;
     };
-    rep(9){
-        rep(j,9){
-            if(!ok(i, j)) continue;
-            A[i]++;
-            B[j]++;
-            int aoki = 0;
-            int takahashi = 0;
-            rep(k,9) takahashi += (k + 1) * pow(10, A[k]);
-            rep(k,9) aoki += (k + 1) * pow(10, B[k]);
-            if(takahashi > aoki){
-                if(i == j) a += card[i] * (card[i] - 1) / 2;
-                else a += card[i] * card[j] / 2;
-            }
-            A[i]--;
-            B[j]--;
-        }
+    auto score = [card, A, B](int a, int b) -> bool{
+        ll takahashi = 0, aoki = 0;
+        vector<int> A_sub = A, B_sub = B;
+        A_sub[a]++; B_sub[b]++;
+        rep(9){ takahashi += A_sub}
     }
-    cout << a / b << endl;
+    rep(9) rep(j,9) if(ok(i, j)){
+        
+    }
 }
 
 signed main(){
