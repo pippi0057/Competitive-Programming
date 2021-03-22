@@ -29,20 +29,11 @@ template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0
 
 void Main(){
     ll n, ans = 0;
-    string s;
     cin >> n;
-    s = to_string(n);
-    if(s.size() % 2 == 0){
-        string temp = "0";
-        rep(s.size()/2-1) temp += "9";
-        ll l = stoll(s.substr(0, s.size() / 2)),
-            r = stoll(s.substr(s.size() / 2));
-        cout << stoll(temp) + max(0LL, min(l, r) - stoll(temp)) << endl;
-    }else{
-        string ans;
-        rep(s.size()/2) ans += "9";
-        cout << ans << endl;
+    for(ll i = 1; i <= 1000000; i++){
+        if(stoll(to_string(i) + to_string(i)) <= n) ans++;
     }
+    cout << ans << endl;
 }
 
 signed main(){
