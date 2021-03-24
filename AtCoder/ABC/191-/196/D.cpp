@@ -24,46 +24,40 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define vec(type,name,...) vector<type> name(__VA_ARGS__)
 #define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
+struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
+using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
-int solve_one(int w, int a, int b){
-    if(w <= 0 || a < 0) return 0;
-    if(w == 1) return 1;
-    if(w == 2) return 1;
-    if(w == 3){
-        if(a == 1) return 2;
-        if(a == 0) return 1;
-    }
-    return solve_one(w - 2, a - 1, b) + solve_one(w - 1, a, b - 1);
-}
+int h, w;
+bool done[16][16];
 
-int solve_two(int w, int a, int b){
-    if(w <= 0 || a < 0) return 0;
-    if(w == 1) return 1;
-    if(w == 2){
-        if(a == 2) return 1;
-        if(a == 1) return 4;
-        if(a == 0) return 1;
+ll dfs(int i, int j, int a, int b){
+    if(a < 0 || b < 0) return 0;
+    if(j == w) j = 0, i++;
+    if(i == h) return 1;
+    if(done[i][j]) return dfs(i, j+1, a, b);
+    ll res = 0;
+    done[i][j] = 1;
+    res += dfs(i, j+1, a, b-1);
+    if(j < w - 1 && !done[i][j+1]){
+        done[i][j+1] = 1;
+        res += dfs(i, j+1, a-1, b);
+        done[i][j+1] = 0;
     }
-    return 4 * solve_two(w - 2, a - 1, b - 2) + solve_two(w - 1, a - 1, b) + solve_two(w - 1, a, b - 2);
-}
-
-int solve_four(int w, int a, int b){
-    int res = 0;
-    rep(a+1){
-        res += solve_two(w, i, b) + solve_two(w, a - i, b);
+    if(i < h - 1 && !done[i+1][j]){
+        done[i+1][j] = 1;
+        res += dfs(i, j+1, a-1, b);
+        done[i+1][j] = 0;
     }
+    done[i][j] = 0;
     return res;
 }
 
 void Main(){
-    int h, w, a, b;
+    int a, b;
     cin >> h >> w >> a >> b;
-    if(h > w) swap(h, w);
-    if(h == 1) cout << solve_one(w, a, b) << endl;
-    else if(h == 2) cout << solve_two(w, a, b) << endl;
-    else if(h == 4) cout << solve_four(w, a, b) << endl;
+    cout << dfs(0, 0, a, b) << endl;
 }
 
 signed main(){
