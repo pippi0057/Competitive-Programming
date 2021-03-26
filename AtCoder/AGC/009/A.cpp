@@ -28,13 +28,14 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int n;
-    ll ans = 0;
+    int n; ll sum = 0, ans = 0;
     cin >> n;
-    vector<pii> ab(n);
+    vector<pll> ab(n);
     for(auto &[a, b] : ab) cin >> a >> b;
-    for(auto [a, b] : ab){
-        ans += a % b;
+    rrep(n){
+        ll a = ab[i].first, b = ab[i].second;
+        a += ans;
+        ans += (a % b ? b - a % b : 0);
     }
     cout << ans << endl;
 }
