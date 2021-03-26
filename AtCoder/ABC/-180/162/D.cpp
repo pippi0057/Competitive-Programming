@@ -28,7 +28,7 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int n, ans = 0;
+    int n; ll ans = 0;
     cin >> n;
     set<int> r, g, b;
     rep(n){
@@ -36,11 +36,10 @@ void Main(){
         cin >> input;
         if(input == 'R') r.insert(i);
         if(input == 'G') g.insert(i);
-        if(input == "B") b.insert(i);
+        if(input == 'B') b.insert(i);
     }
     for(auto i : r) for(auto j : g){
         int temp = b.size();
-        if(i > j) swap(i, j);
         if(!((j - i) % 2) && b.find((i + j) / 2) != b.end()) temp--;
         if(b.find(j + (j - i)) != b.end()) temp--;
         if(b.find(i - (j - i)) != b.end()) temp--;
