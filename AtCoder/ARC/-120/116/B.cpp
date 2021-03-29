@@ -26,6 +26,9 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
+#include <atcoder/all>
+using namespace atcoder;
+using mint = modint;
 
 const ll mod = 998244353;
 
@@ -41,32 +44,29 @@ ll mow(ll x, ll n) {
 
 void Main(){
     int n;
-    ll ans = 0, sum = 0;
+    mint ans = 0, sum = 0;
     cin >> n;
     vector<ll> a(n);
     for(auto &x : a){
         cin >> x;
         ans += x * x;
-        ans %= mod;
     }
     sort(all(a));
     rep(i,1,n){
         sum += a[i] * mow(2,i-1);
-        sum %= mod;
     }
     rep(n-1){
         ans += a[i] * sum;
-        ans %= mod;
         sum -= a[i+1];
-        if(sum <= 0) sum += mod;
         sum /= 2;
     }
-    cout << ans << endl;
+    cout << ans.val() << endl;
 }
 
 signed main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
     cout << setprecision(10) << fixed;
+    mint::set_mod(mod);
     Main();
 }
