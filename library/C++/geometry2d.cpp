@@ -25,9 +25,9 @@ namespace geometry2d{
         inline bool operator >=(Point other){ return !(*this < other); }
         inline bool operator !=(Point other){ return !(*this == other); }
         double length() const{ return sqrt(max(0.0, length2())); }
+        constexpr double length2() const{ return dot(*this); }
         constexpr double dot(const Point& other) const{ return x * other.x + y * other.y; }
         constexpr double cross(const Point& other) const{ return x * other.y - y * other.x; }
-        constexpr double length2() const{ return dot(*this); }
         double dist(const Point& other) const{ return (other - *this).length(); }
         Point normalized() const{ return *this / length(); }
         constexpr bool isZero() const{ return x == 0.0 && y == 0.0; }
