@@ -18,15 +18,16 @@ namespace geometry2d{
         Point& operator -=(const Point& other){ x -= other.x; y -= other.y; return *this; }
         Point& operator *=(double s){ x *= s; y *= s; return *this; }
         Point& operator /=(double s){ x /= s; y /= s; return *this; }
-        inline operator ==(Point other){ return x == other.x && y == other.y; }
-        inline operator <(Point other){ if(sgn(x - other.x) == 0) return sgn(y - other.y) < 0; return sgn(x - other.x) < 0; }
-        inline operator <=(Point other){ return *this == other || *this < other; }
-        inline operator >(Point other){ return !(*this <= other); }
-        inline operator >=(Point other){ return !(*this < other); }
-        inline operator !=(Point other){ return !(*this == other); }
+        inline bool operator ==(Point other){ return x == other.x && y == other.y; }
+        inline bool operator <(Point other){ if(sgn(x - other.x) == 0) return sgn(y - other.y) < 0; return sgn(x - other.x) < 0; }
+        inline bool operator <=(Point other){ return *this == other || *this < other; }
+        inline bool operator >(Point other){ return !(*this <= other); }
+        inline bool operator >=(Point other){ return !(*this < other); }
+        inline bool operator !=(Point other){ return !(*this == other); }
         double length() const{ return sqrt(max(0.0, length2())); }
+        constexpr double dot(const Point& other) const{ return x * other.x + y * other.y; }
+        constexpr double cross(const Point& other) const{ return x * other.y - y * other.x; }
         constexpr double length2() const{ return dot(*this); }
-        constexpr double dot const(const Point& other){ return x * other.x + y * other.y; }
         double dist(const Point& other) const{ return (other - *this).length(); }
         Point normalized() const{ return *this / length(); }
         constexpr bool isZero() const{ return x == 0.0 && y == 0.0; }
@@ -38,8 +39,8 @@ namespace geometry2d{
         int flg = sgn((b - a).cross(c - a));
         if(flg == 1 || flg == -1) return flg;
         if(sgn((b - a).dot(c - b)) > 0) return 2;
-	    if(sgn((a - b).dot(c - a)) > 0) return -2;
-		return 0;
+        if(sgn((a - b).dot(c - a)) > 0) return -2;
+        return 0;
     }
     int angleType(Point a, Point b, Point c){ double v = (a - b).dot(c - b); return sgn(v) > 0 ? 0 : (sgn(v) == 0 ? 1 : 2); }
 }
