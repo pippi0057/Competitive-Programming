@@ -1,14 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long int
-const double pi = 3.14159265358979;
 const ll inf = 1e17;
 const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
 const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
 #define pll pair<ll,ll>
 #define endl "\n"
-#define dtor(deg) (((deg)/360)*2*pi)
 #define all(a) a.begin(),a.end()
 #define overload(_1,_2,_3,_4,name,...) name
 #define _rep1(n) for(int i = 0; i < (n); i++)
@@ -27,15 +25,61 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
+namespace geometry2d{
+    const double EPS = 1e-10;
+    const double PI = 3.14159265358979;
+    double dtor(double d){ return d * PI / 180.0; }
+    double rtod(double r){ return r * 180.0 / PI; }
+    int sgn(const double a){ return a < -EPS ? -1 : (a > EPS ? 1 : 0); }
+    struct Point{
+        double x, y;
+        constexpr Point() : x(0.0), y(0.0) {}
+        constexpr Point(double x, double y) : x(x), y(y) {}
+        constexpr Point operator +() const{ return *this; }
+        constexpr Point operator -() const{ return{ -x, -y }; }
+        constexpr Point operator +(const Point& other) const{ return{ x + other.x, y + other.y }; }
+        constexpr Point operator -(const Point& other) const{ return{ x - other.x, y - other.y }; }
+        constexpr Point operator *(double s) const{ return{ x * s, y * s }; }
+        constexpr Point operator /(double s) const{ return{ x / s, y / s }; }
+        Point& operator +=(const Point& other){ x += other.x; y += other.y; return *this; }
+        Point& operator -=(const Point& other){ x -= other.x; y -= other.y; return *this; }
+        Point& operator *=(double s){ x *= s; y *= s; return *this; }
+        Point& operator /=(double s){ x /= s; y /= s; return *this; }
+        inline bool operator ==(Point other){ return x == other.x && y == other.y; }
+        inline bool operator <(Point other){ if(sgn(x - other.x) == 0) return sgn(y - other.y) < 0; return sgn(x - other.x) < 0; }
+        inline bool operator <=(Point other){ return *this == other || *this < other; }
+        inline bool operator >(Point other){ return !(*this <= other); }
+        inline bool operator >=(Point other){ return !(*this < other); }
+        inline bool operator !=(Point other){ return !(*this == other); }
+        double length() const{ return sqrt(max(0.0, length2())); }
+        constexpr double dot(const Point& other) const{ return x * other.x + y * other.y; }
+        constexpr double cross(const Point& other) const{ return x * other.y - y * other.x; }
+        constexpr double length2() const{ return dot(*this); }
+        double dist(const Point& other) const{ return (other - *this).length(); }
+        Point normalized() const{ return *this / length(); }
+        constexpr bool isZero() const{ return x == 0.0 && y == 0.0; }
+        Point normalUnitVector() const{ return{ -normalized().y, normalized().x }; }
+        Point rotation(double arg) const{ double cs = cos(arg), sn = sin(arg); return Point(x * cs - y * sn, x * sn + y * cs); }
+        double angle() const{ return atan2(y, x); }
+    };
+    int iSP(Point a, Point b, Point c){
+        int flg = sgn((b - a).cross(c - a));
+        if(flg == 1 || flg == -1) return flg;
+        if(sgn((b - a).dot(c - b)) > 0) return 2;
+        if(sgn((a - b).dot(c - a)) > 0) return -2;
+        return 0;
+    }
+    int angleType(Point a, Point b, Point c){ double v = (a - b).dot(c - b); return sgn(v) > 0 ? 0 : (sgn(v) == 0 ? 1 : 2); }
+}
+using namespace geometry2d;
+
 void Main(){
-    long double n, x0, y0, x1, y1, x2, y2, mx, my, dist_2, dist_round, rad;
-    cin >> n >> x0 >> y0 >> x2 >> y2;
-    mx = (x0 + x2) / 2;
-    my = (y0 + y2) / 2;
-    dist_2 = (x0 - mx) * (x0 - mx) + (y0 - my) * (y0 - my);
-    dist_round = sqrt(dist_2 + dist_2 - 2 * dist_2 * cos(dtor(360/n)));
-    rad = dtor((180 - (360 / n)) / 2) - atan(abs(my - y0) / abs(mx - x0));
-    cout << x0 + dist_round * cos(rad) << " " << y0 - dist_round * sin(rad) << endl;
+    int n;
+    Point a, b, mid, ans;
+    cin >> n >> a.x >> a.y >> b.x >> b.y;
+    mid = (a + b) / 2;
+    ans = (a - mid).rotation(dtor(360.0 / n));
+    cout << (mid + ans).x << " " << (mid + ans).y << endl;
 }
 
 signed main(){
