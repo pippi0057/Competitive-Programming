@@ -63,6 +63,9 @@ namespace Geometry2D{
             if(sgn(l1.toVec().cross(l2.toVec())) == 0) return{ error_val, false };
             return{ l1.from + l1.toVec() * abs((l2.to - l1.from).cross(l2.toVec()) / l1.toVec().cross(l2.toVec())), true };
         }
+        pair<Point, bool> segmentInterSection(const Segment& s1, const Segment& s2){
+            
+        }
         double distBetweenPointAndLine(const Point& p, const Line& l){ return abs(l.toVec().cross(p - l.from) / l.toVec().length()); }
         double distBetweenPointAndRay(const Point& p, const Ray& r){
             if(sgn((p - r.from).dot(r.toVec())) < 0) return r.from.dist(p);
