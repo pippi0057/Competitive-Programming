@@ -3,7 +3,7 @@ namespace Geometry2D{
     const double PI = 3.14159265358979;
     double dtor(double d){ return d * PI / 180.0; }
     double rtod(double r){ return r * 180.0 / PI; }
-    int sgn(const double a){ return a < -EPS ? -1 : (a > EPS ? 1 : 0); }
+    int sgn(const double a){ return a < -EPS ? -1 : a > EPS ? 1 : 0; }
     struct Point{
         double x, y;
         constexpr Point() : x(0.0), y(0.0) {}
