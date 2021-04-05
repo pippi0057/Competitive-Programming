@@ -28,7 +28,8 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int n, ans = 0;
+    int n;
+    vector<string> ans;
     cin >> n;
     rep(bit, 1 << n){
         int cnt = 0;
@@ -42,8 +43,10 @@ void Main(){
                 else cnt--;
             }
         }
-        if(ok && !cnt) cout << t << endl;
+        if(ok && !cnt) ans.push_back(t);
     }
+    sort(all(ans));
+    ForEach(ans, [](string s){ cout << s << endl; });
 }
 
 signed main(){
