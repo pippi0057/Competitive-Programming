@@ -78,28 +78,10 @@ using namespace geometry2d;
 void Main(){
     Point a, b;
     cin >> a.x >> a.y >> b.x >> b.y;
-    string _1 = to_string((b + (a - b).rotation(dtor(270))).x),
-        _2 = to_string((b + (a - b).rotation(dtor(270))).y),
-        _3 = to_string((a + (b - a).rotation(dtor(90))).x),
-        _4 = to_string((a + (b - a).rotation(dtor(90))).y);
-    string a1, a2, a3, a4;
-    for(auto x : _1){
-        if(x == '.') break;
-        a1 += x;
-    }
-    for(auto x : _2){
-        if(x == '.') break;
-        a2 += x;
-    }
-    for(auto x : _3){
-        if(x == '.') break;
-        a3 += x;
-    }
-    for(auto x : _4){
-        if(x == '.') break;
-        a4 += x;
-    }
-    cout << a1 << " " << a2 << " " << a3 << " " << a4 << endl;
+    cout << stoi(to_string((b + (a - b).rotation(dtor(270))).x)) << " "
+        << stoi(to_string((b + (a - b).rotation(dtor(270))).y)) << " "
+        << stoi(to_string((a + (b - a).rotation(dtor(90))).x)) << " "
+        << stoi(to_string((a + (b - a).rotation(dtor(90))).y)) << endl;
 }
 
 signed main(){
