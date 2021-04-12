@@ -28,9 +28,11 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    ll r, x, y;
+    long double r, x, y;
     cin >> r >> x >> y;
-    for(ll i = 1; ; i++) if(((r * i) * (r * i)) >= ((x * x) + (y * y))){ cout << i << endl; return; }
+    if(sqrt(x * x + y * y) == r) cout << 1 << endl;
+    else if(sqrt(x * x + y * y) <= r * 2) cout << 2 << endl;
+    else cout << int(ceil(sqrt(x * x + y * y) / r)) << endl;
 }
 
 signed main(){
