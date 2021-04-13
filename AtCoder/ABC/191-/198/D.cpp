@@ -28,12 +28,31 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    string s1, s2, s3;
-    cin >> s1 >> s2 >> s3;
-    reverse(all(s1));
-    reverse(all(s2));
-    reverse(all(s3));
-    
+    ll k = 0;
+    vector<string> s(3);
+    for(auto& x : s) cin >> x;
+    vector<ll> v = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    map<char,ll> m;
+    set<char> counter;
+    for(auto a : s) for(auto x : a) counter.insert(x);
+    for(auto x : counter){
+        m[x] = k;
+        k++;
+    }
+    if(k > 10){ cout << "UNSOLVABLE" << endl; return; }
+    do{
+        bool ok = 1;
+        vector<ll> sum(3);
+        rep(3){
+            if(!v[m[s[i][0]]]) ok = 0;
+            for(auto x : s[i]){ sum[i] *= 10; sum[i] += v[m[x]]; }
+        }
+        if(ok && sum[0] + sum[1] == sum[2]){
+            for(auto x : sum) cout << x << endl;
+            return;
+        }
+    }while(next_permutation(all(v)));
+    cout << "UNSOLVABLE" << endl;
 }
 
 signed main(){
