@@ -28,11 +28,11 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    ll k = 0;
+    int k = 0;
     vector<string> s(3);
     for(auto& x : s) cin >> x;
-    vector<ll> v = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    map<char,ll> m;
+    vector<int> v = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    map<char,int> m;
     set<char> counter;
     for(auto a : s) for(auto x : a) counter.insert(x);
     for(auto x : counter){ m[x] = k; k++; }
