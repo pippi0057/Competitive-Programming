@@ -35,10 +35,7 @@ void Main(){
     map<char,ll> m;
     set<char> counter;
     for(auto a : s) for(auto x : a) counter.insert(x);
-    for(auto x : counter){
-        m[x] = k;
-        k++;
-    }
+    for(auto x : counter){ m[x] = k; k++; }
     if(k > 10){ cout << "UNSOLVABLE" << endl; return; }
     do{
         bool ok = 1;
