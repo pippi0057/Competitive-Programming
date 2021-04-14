@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 #define ll long long int
-const double pi = 3.14159265358979;
 const ll inf = 1e17;
 const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
 const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
 #define pll pair<ll,ll>
 #define endl "\n"
-#define dtor(deg) (((deg)/360)*2*pi)
 #define all(a) a.begin(),a.end()
 #define overload(_1,_2,_3,_4,name,...) name
 #define _rep1(n) for(int i = 0; i < (n); i++)
@@ -25,13 +25,15 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
 #define NextAfter(x) x = nextafter(x, INFINITY)
-struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
-using Graph = vector<vector<Edge>>;
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    
+    long double a, b, c;
+    cin >> a >> b >> c;
+    NextAfter(a); NextAfter(b); NextAfter(c);
+    if(sqrt(a) + sqrt(b) < sqrt(c)) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }
 
 signed main(){
