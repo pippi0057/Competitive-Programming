@@ -27,20 +27,20 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
-int n, c[100100];
+int n, c[100100], seen[100100];
 vector<int> ans;
 vector<vector<int>> g(100100);
-bool done[100100], seen[100100];
+bool done[100100];
 
-void dfs(vector<vector<int>> g, int f){
+void dfs(int f){
     if(!seen[c[f]]) ans.push_back(f+1);
     done[f] = 1;
-    seen[c[f]] = 1;
+    seen[c[f]]++;
     for(auto v : g[f]){
         if(done[v]) continue;
-        dfs(g, v);
+        dfs(v);
     }
-    seen[c[f]] = 0;
+    seen[c[f]]--;
 }
 
 void Main(){
@@ -53,7 +53,7 @@ void Main(){
         g[a].push_back(b);
         g[b].push_back(a);
     }
-    dfs(g, 0);
+    dfs(0);
     sort(all(ans));
     for(auto x : ans) cout << x << endl;
 }
