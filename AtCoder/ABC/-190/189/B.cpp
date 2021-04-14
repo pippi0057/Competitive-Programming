@@ -1,11 +1,15 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
-#define int long long int
-const double pi = 3.14159265358979;
-const int inf = 1e13;
+using namespace atcoder;
+#define ll int64_t
+const ll inf = 1e17;
+const long double EPS = 1e-10;
+const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
+const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
+#define pll pair<ll,ll>
 #define endl "\n"
-#define dtor(deg) (((deg)/360)*2*pi)
 #define all(a) a.begin(),a.end()
 #define overload(_1,_2,_3,_4,name,...) name
 #define _rep1(n) for(int i = 0; i < (n); i++)
@@ -16,27 +20,26 @@ const int inf = 1e13;
 #define _rrep1(n) for(int i = (n) - 1; i >= 0; i--)
 #define _rrep2(i,n) for(int i = (n) - 1; i >= 0; i--)
 #define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
-#define rrep(...) overload(__VA_ARGS__,_null,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
+#define _rrep4(i,a,b,c) for(int i = (b) - 1; i >= (a); i -= (c))
+#define rrep(...) overload(__VA_ARGS__,_rrep4,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
 #define vec(type,name,...) vector<type> name(__VA_ARGS__)
-#define vv(type,name,size,...) vector<vector<type>> name(size,vector<int>(__VA_ARGS__))
+#define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
 #define ForEach(a,b) for_each(a.begin(),a.end(),b)
-struct Edge { int to, cost; Edge(int to, int cost) : to(to), cost(cost) {} };
-using Graph = vector<vector<Edge>>;
+#define NextAfter(x) x = nextafter(x, INFINITY)
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    int n, now = 0, x;
+    int n;
+    long double x, sum = 0;
     cin >> n >> x;
-    x *= 100;
+    NextAfter(x); NextAfter(sum);
     rep(n){
-        int v, p;
+        long double v, p;
         cin >> v >> p;
-        now += v * p;
-        if(now > x){
-            cout << i + 1 << endl;
-            return;
-        }
+        NextAfter(v); NextAfter(p);
+        sum += v * p / 100.0;
+        if(sum - x > EPS){ cout << i + 1 << endl; return; }
     }
     cout << -1 << endl;
 }
@@ -45,6 +48,5 @@ signed main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
     cout << setprecision(10) << fixed;
-    //int n; cin >> n; rep(n)
     Main();
 }
