@@ -34,15 +34,11 @@ void Main(){
     int n;
     cin >> n;
     mint ans = 1;
-    set<int> a;
-    rep(n){
-        int input;
-        cin >> input;
-        a.insert(input);
-    }
-    vector<int> b = {0};
-    for(auto x : a) b.push_back(x);
-    rep(b.size()-1) ans *= b[1] - b[0] + 1;
+    vector a(n, 0);
+    for(auto& x : a) cin >> x;
+    a.push_back(0);
+    sort(all(a));
+    rep(n) ans *= a[i+1] - a[i] + 1;
     cout << ans.val() << endl;
 }
 
