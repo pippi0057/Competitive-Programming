@@ -30,18 +30,18 @@ template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0
 void Main(){
     int n, q;
     cin >> n;
-    vector<int> a(n);
+    vector<ll> a(n);
     for(auto& x : a) cin >> x;
     cin >> q;
     sort(all(a));
     rep(q){
-        int input, left = 0, right = n - 1, mid;
+        ll input, left = 0, right = n - 1, mid;
         cin >> input;
         while(right - left > 1){
             mid = (left + right) / 2;
             if(a[mid] < input) left = mid;
             else if(a[mid] > input) right = mid;
-            else break;
+            else{ left = mid; break; }
         }
         cout << min(abs(input - a[left]), abs(input - a[right])) << endl;
     }
