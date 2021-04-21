@@ -33,13 +33,10 @@ void Main(){
     cin >> n;
     for(auto& x : coin) cin >> x;
     sort(all(coin));
-    for(int i = 0; coin[2] * i <= n; i++){
-        for(int j = 0; coin[2] * i + coin[1] * j <= n; j++){
-            if(!((n - coin[2] * i - coin[1] * j) % coin[0])){
+    for(int i = 0; coin[2] * i <= n; i++)
+        for(int j = 0; coin[2] * i + coin[1] * j <= n; j++)
+            if(!((n - coin[2] * i - coin[1] * j) % coin[0]))
                 chmin(ans, i + j + (n - coin[2] * i - coin[1] * j) / coin[0]);
-            }
-        }
-    }
     cout << ans << endl;
 }
 
