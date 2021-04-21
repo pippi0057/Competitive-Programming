@@ -28,7 +28,10 @@ template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 
 void Main(){
-    
+    string s;
+    cin >> s;
+    rep(s.size()-1) if(s[i] == 'A' && s[i+1] == 'C'){ cout << "Yes" << endl; return; }
+    cout << "No" << endl;
 }
 
 signed main(){
