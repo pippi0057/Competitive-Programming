@@ -27,19 +27,23 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define NextAfter(x) x = nextafter(x, INFINITY)
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
+struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
+using Graph = vector<vector<Edge>>;
 
 void Main(){
-    int n, l, k, left = 0, right = 1000000100, mid;
-    cin >> n >> l >> k;
-    vector a(n, 0);
+    int n, k, r = 0, L, l, mid;
+    cin >> n >> L >> k;
+    l = L;
+    vector<int> a(n);
     for(auto& x : a) cin >> x;
-    while(right - left > 1){
-        int sum = 0;
-        mid = (right - left) / 2;
-        rep(n){
-            sum += a[i]
-        }
+    while(l - r > 1){
+        int now = 0, cnt = 0;
+        mid = (r + l) / 2;
+        for(auto x : a){ if(L - x < mid) break; if(mid <= x - now){ now = x; cnt++; } }
+        if(cnt < k) l = mid;
+        else r = mid;
     }
+    cout << r << endl;
 }
 
 signed main(){
