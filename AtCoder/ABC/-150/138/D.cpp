@@ -28,18 +28,41 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
-using Graph = vector<vector<Edge>>;
+using Graph = vector<vector<int>>;
 
 void Main(){
-    int n;
-    double ans = 0;
-    cin >> n;
-    vector v(n, 0.0);
-    for(auto& x : v) cin >> x;
-    sort(all(v));
-    ans = v[0];
-    rep(n-1) ans = (ans + v[i+1]) / 2;
-    cout << ans << endl;
+    int n, q;
+    cin >> n >> q;
+    Graph g(n);
+    vector ans(n, 0);
+    vector done(n, false);
+    rep(n-1){
+        int a, b;
+        cin >> a >> b;
+        a--; b--;
+        g[a].emplace_back(b);
+        g[b].emplace_back(a);
+    }
+    rep(q){
+        int a, b;
+        cin >> a >> b;
+        ans[a-1] += b;
+    }
+    queue<int> task;
+    task.push(0);
+    done[0] = 1;
+    while(task.size()){
+        int v = task.front();
+        task.pop();
+        done[v] = 1;
+        for(auto e : g[v]){
+            if(done[e]) continue;
+            ans[e] += ans[v];
+            task.push(e);
+        }
+    }
+    rep(n) cout << ans[i] << " ";
+    cout << endl;
 }
 
 signed main(){

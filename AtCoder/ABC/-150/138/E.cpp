@@ -31,15 +31,23 @@ struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-    int n;
-    double ans = 0;
-    cin >> n;
-    vector v(n, 0.0);
-    for(auto& x : v) cin >> x;
-    sort(all(v));
-    ans = v[0];
-    rep(n-1) ans = (ans + v[i+1]) / 2;
-    cout << ans << endl;
+    ll ans = 0;
+    int prev = -1;
+    string s, t;
+    cin >> s >> t;
+    vector<vector<int>> ind(26);
+    rep(s.size()) ind[s[i]-'a'].emplace_back(i);
+    for(auto x : t){
+        int c = x - 'a';
+        if(!ind[c].size()){ cout << -1 << endl; return; }
+        auto itr = upper_bound(all(ind[c]), prev);
+        if(itr == ind[c].end()){
+            ans += s.size();
+            itr = ind[c].begin();
+        }
+        prev = *itr;
+    }
+    cout << ans + prev + 1 << endl;
 }
 
 signed main(){
