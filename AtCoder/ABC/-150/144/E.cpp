@@ -32,14 +32,22 @@ struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-    int n;
-    ll k;
+    int n; ll k;
     cin >> n >> k;
-    vector a(n, 0), f(n, 0);
+    vector a(n, 0LL), f(n, 0LL);
     for(auto& x : a) cin >> x;
     for(auto& x : f) cin >> x;
-    sort(all(a));
-    
+    sort(all(a)); sort(all(f));
+    reverse(all(a));
+    ll L = -1, ans = inf, mid;
+    while(ans - L > 1){
+        ll cnt = 0;
+        mid = (L + ans) / 2;
+        rep(n) cnt += max(0LL, a[i] - mid / f[i]);
+        if(cnt <= k) ans = mid;
+        else L = mid;
+    }
+    cout << ans << endl;
 }
 
 signed main(){
