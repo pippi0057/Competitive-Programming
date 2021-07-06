@@ -18,7 +18,7 @@ namespace Geometry2D{
         Point& operator -=(const Point& other){ x -= other.x; y -= other.y; return *this; }
         Point& operator *=(double s){ x *= s; y *= s; return *this; }
         Point& operator /=(double s){ x /= s; y /= s; return *this; }
-        inline bool operator ==(Point other){ return x == other.x && y == other.y; }
+        inline bool operator ==(Point other){ return !(sgn(x - other.x)) && !(sgn(y - other.y)); }
         inline bool operator <(Point other){ if(sgn(x - other.x) == 0) return sgn(y - other.y) < 0; return sgn(x - other.x) < 0; }
         inline bool operator <=(Point other){ return *this == other || *this < other; }
         inline bool operator >(Point other){ return !(*this <= other); }
