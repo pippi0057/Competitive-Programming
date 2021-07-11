@@ -31,11 +31,42 @@ template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } r
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
+namespace RLC{
+    string encode(const string& s){
+        string res = "";
+        for(int l = 0; l < s.size();){
+            int r = l + 1;
+            for(; r < s.size() && s[l] == s[r]; r++);
+            res += s[l] + to_string(r - l);
+            l = r;
+        }
+        return res;
+    }
+    string decode(const string& s){
+        string res = "";
+        for(int l = 0; l < s.size();){
+            int r = l + 1;
+            for(; r < s.size() && 48 <= s[r] && s[r] <= 57; r++);
+            for(int i = 0; i < stoi(s.substr(l + 1, r - l)); i++) res += s[l];
+            l = r;
+        }
+        return res;
+    }
+}
+
 void Main(){
-    int n;
+    ll n, ans;
     string s;
     cin >> n >> s;
-    
+    ans = n * (n + 1) / 2;
+    s = RLC::encode(s);
+    for(ll l = 0; l < s.size();){
+        ll r = l + 1;
+        for(; r < s.size() && 48 <= s[r] && s[r] <= 57; r++);
+        ans -= stoll(s.substr(l + 1, r - l)) * (stoll(s.substr(l + 1, r - l)) + 1) / 2;
+        l = r;
+    }
+    cout << ans << endl;
 }
 
 signed main(){
