@@ -1,14 +1,3 @@
-/**
- *  dijkstra((グラフ名), (始点))
- *  O(e logv)
- *  負の辺があったら使えない
-**/
-
-struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
-using Graph = vector<vector<Edge>>;
-
-// pii, Edge, Graph
-
 vector<ll> dijkstra(const Graph &g, int s){
     int n = g.size();
     vector<ll> dist(n, inf);
