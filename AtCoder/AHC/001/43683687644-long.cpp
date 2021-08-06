@@ -98,7 +98,7 @@ void Main(clock_t START, int TIME){
             }
             ENDLOOP
         }
-        while(1000000){
+        while(100000){
             int i = rand() % n, cmd = rand() % 4;
             bool ok = 1;
             answer prev = ans[i];
@@ -133,5 +133,5 @@ signed main(){
     cin.tie(0);
     ios::sync_with_stdio(0);
     cout << setprecision(10) << fixed;
-    Main(START, TIME * 990.0);
+    Main(START, TIME * 993.0);
 }
