@@ -32,6 +32,9 @@ using Graph = vector<vector<Edge>>;
 
 constexpr long double TIME = 5;
 
+struct poster { int x, y, r; };
+struct answer { int a, b, c, d; };
+
 bool judge(int x1, int x2, int y1, int y2, int a, int b, int c, int d){
     if(a <= x1 && x1 <= c){
         if(b <= y1 && y1 <= d) ok = 0;
@@ -71,6 +74,7 @@ void Main(clock_t START, int TIME){
         if(!ok) ans[i] = prev;
         ENDLOOP
     }
+    for(const auto& [a, b, c, d] : ans) cout << a << " " << b << " " << c << " " << d << endl;
 }
 
 signed main(){
