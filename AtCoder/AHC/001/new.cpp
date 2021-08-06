@@ -32,8 +32,23 @@ using Graph = vector<vector<Edge>>;
 
 constexpr long double TIME = 5;
 
-struct poster { int x, y, r; };
-struct answer { int a, b, c, d; };
+bool judge(int x1, int x2, int y1, int y2, int a, int b, int c, int d){
+    if(a <= x1 && x1 <= c){
+        if(b <= y1 && y1 <= d) ok = 0;
+        if(b <= y2 && y2 <= d) ok = 0;
+        if(y1 <= b && d <= y2) ok = 0;
+    }
+    if(a <= x2 && x2 <= c){
+        if(b <= y1 && y1 <= d) ok = 0;
+        if(b <= y2 && y2 <= d) ok = 0;
+        if(y1 <= b && d <= y2) ok = 0;
+    }
+    if(x1 <= a && c <= x2){
+        if(b <= y1 && y1 <= d) ok = 0;
+        if(b <= y2 && y2 <= d) ok = 0;
+        if(y1 <= b && d <= y2) ok = 0;
+    }
+}
 
 void Main(clock_t START, int TIME){
     int n;
@@ -50,35 +65,12 @@ void Main(clock_t START, int TIME){
         int i = rand() % n, cmd = rand() % 4;
         bool ok = 1;
         answer prev = ans[i];
-        if(cmd == 0) ans[i].a -= 1;
-        if(cmd == 1) ans[i].b -= 1;
-        if(cmd == 2) ans[i].c += 1;
-        if(cmd == 3) ans[i].d += 1;
-        rep(j, n){
-            if(i == j) continue;
-            int a = ans[j].a, b = ans[j].b,
-                c = ans[j].c, d = ans[j].d;
-            if(a <= ans[i].a && ans[i].a <= c){
-                if(b <= ans[i].b && ans[i].b <= d) ok = 0;
-                if(b <= ans[i].d && ans[i].d <= d) ok = 0;
-                if(ans[i].b <= b && d <= ans[i].d) ok = 0;
-            }
-            if(a <= ans[i].c && ans[i].c <= c){
-                if(b <= ans[i].b && ans[i].b <= d) ok = 0;
-                if(b <= ans[i].d && ans[i].d <= d) ok = 0;
-                if(ans[i].b <= b && d <= ans[i].d) ok = 0;
-            }
-            if(ans[i].a <= a && c <= ans[i].c){
-                if(b <= ans[i].b && ans[i].b <= d) ok = 0;
-                if(b <= ans[i].d && ans[i].d <= d) ok = 0;
-                if(ans[i].b <= b && d <= ans[i].d) ok = 0;
-            }
-        }
+        
+        rep(j, n) if(!judge(ans[i].a, ans[i].b, ans[i].c, ans[i].d, ans[j].a, ans[j].b, ans[j].c, ans[j].d)) ok = 0;
         if(ans[i].a < 0 || ans[i].b < 0 || ans[i].c > 10000 || ans[i].d > 10000) ok = 0;
         if(!ok) ans[i] = prev;
         ENDLOOP
     }
-    for(const auto& [a, b, c, d] : ans) cout << a << " " << b << " " << c << " " << d << endl;
 }
 
 signed main(){
@@ -86,5 +78,5 @@ signed main(){
     cin.tie(0);
     ios::sync_with_stdio(0);
     cout << setprecision(10) << fixed;
-    Main(START, TIME * 98000.0 / 100.0);
+    Main(START, TIME * 95000.0 / 100.0);
 }
