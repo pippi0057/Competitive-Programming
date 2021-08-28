@@ -31,26 +31,44 @@ using Graph = vector<vector<Edge>>;
 
 using mint = modint998244353;
 
+vector<pair<char, int>> encode(const string& str) {
+    int n = (int)str.size();
+    vector<pair<char, int>> ret;
+    for(int l = 0; l < n;){
+        int r = l + 1;
+        for (; r < n && str[l] == str[r]; r++) {};
+        ret.push_back({str[l], r - l});
+        l = r;
+    }
+    return ret;
+}
+
+ll mow(ll x, ll n){ ll ret = 1; while(n > 0){ if(n & 1) ret = ret * x; x = x * x; n >>= 1; } return ret; }
+ll mow(ll x, ll n, ll mod){ ll ret = 1; while(n > 0){ if(n & 1) ret = ret * x % mod; x = x * x % mod; n >>= 1; } return ret; }
+
 void Main(){
     int n;
-    cin >> n;
-    vector a(n, 0);
-    for(auto& x : a){
-        char input;
-        cin >> input;
-        x = input - 65;
-    }
-    vector dp(n, vector(1 << 10, vector(10, mint(0))));
-    dp[0][1 << a[0]][a[0]] = 1;
-    rep(i, 1, n){
-        rep(S, 1 << 10) rep(j, 10){
-            if(!(S >> a[i] & 1 && a[i] != j)) dp[i][S | 1 << a[i]][a[i]] += dp[i-1][S][j];
-            dp[i][S][j] += dp[i-1][S][j];
-        }
-        dp[i][1 << a[i]][a[i]]++;
-    }
+    string s;
+    cin >> n >> s;
+    set<char> t;
+    for(const auto& x : s) t.insert(x);
+    vector<pair<char, int>> RLC = encode(s);
     mint ans = 0;
-    rep(1 << 10) rep(j, 10) ans += dp[n-1][i][j];
+    string v;
+    for(const auto& x : t) v += x;
+    n = RLC.size();
+    do{
+        vector<vector<mint>> dp(n, vector(t.size() + 1, mint(0)));
+        dp[0][0] = 1;
+        if(RLC[0].first == v[0]) dp[0][1] = ((mow(2, RLC[0].second, 998244353) - 1 + 998244353)) % 998244353;
+        rep(i, 1, n){
+            rep(j, 0, t.size() + 1) dp[i][j] = dp[i - 1][j];
+            rep(j, 1, t.size() + 1){
+                if(RLC[i].first == v[j - 1]) dp[i][j] += dp[i - 1][j - 1] * ((mow(2, RLC[i].second, 998244353) - 1 + 998244353) % 998244353);
+            }
+        }
+        ans += dp[n - 1][t.size()];
+    }while(next_permutation(all(v)));
     cout << ans.val() << endl;
 }
 
