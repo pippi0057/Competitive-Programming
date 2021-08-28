@@ -35,7 +35,7 @@ ll mow(ll x, ll n, ll mod){ ll ret = 1; while(n > 0){ if(n & 1) ret = ret * x % 
 void Main(){
     ll n, ans = 0;
     cin >> n;
-    for(; ; ans++) if(mow(2, ans) > n) break;
+    for(; mow(2, ans) <= n; ans++);
     cout << ans - 1 << endl;
 }
 
