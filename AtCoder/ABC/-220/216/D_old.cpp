@@ -31,30 +31,37 @@ struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-    int n, m;
+    int n, m, done = 0;
     cin >> n >> m;
-    vector<vector<int>> a(m), info(n);
-    vector<int> seen(n), front(m), d(n);
-    {int i = 0; for(auto& v : a){
-        int k; cin >> k;
-        v.resize(k, 0);
-        for(auto& x : v) cin >> x, x--, info[x].emplace_back(i);
-        seen[v[0]]++;
+    vector<vector<int>> a(max(n, m) + 100), data(max(n, m) + 100);
+    map<int, int> F;
+    vector<int> f(max(n, m) + 100, 0);
+    vector<int> D(max(n, m) + 100, 0);
+    rep(m){
+        int k;
+        cin >> k;
+        rep(j, k){
+            int x; cin >> x;
+            a[i].emplace_back(x);
+            data[x].emplace_back(i);
+        }
+        F[a[i][f[i]]]++;
         queue<int> task;
         task.push(i);
         while(task.size()){
             int now = task.front(); task.pop();
-            if(seen[a[now][front[now]]] == 2 && !d[a[now][f[now]]]){
-                d[a[now][f[now]]] = 1;
-                for(Auto& x : info[a[now][f[now]]]){
-                    f[x]++;
-                    seen[]
+            if(F[a[now][f[now]]] == 2 && !D[a[now][f[now]]]){
+                D[a[now][f[now]]] = 1;
+                for(Auto& y : data[a[now][f[now]]]){
+                    f[y]++;
+                    if(f[y] != a[y].size()){ task.push(y); F[a[y][f[y]]]++; }
                 }
+                done++;
             }
         }
-        i++;
-    }}
-
+    }
+    if(done == n) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }
 
 signed main(){
