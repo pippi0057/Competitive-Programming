@@ -31,12 +31,9 @@ struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-    vector<char> c = {'B', 'R', 'G', 'H'};
-    map<char, int> data = {{'B', 0}, {'R', 1}, {'G', 2}, {'H', 3}};
-    vector<int> seen(4);
-    vector<string> s(3);
-    for(auto& x : s) cin >> x, seen[data[x[1]]] = 1;
-    rep(4) if(!seen[i]) cout << 'A' << c[i] << 'C' << endl;
+    char x, a, b, c;
+    cin >> x >> a >> x >> x >> b >> x >> x >> c >> x;
+    cout << 'A' << char(a ^ b ^ c ^ 'B' ^ 'R' ^ 'G' ^ 'H') << 'C' << endl;
 }
 
 signed main(){
