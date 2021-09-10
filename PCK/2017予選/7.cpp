@@ -29,16 +29,42 @@ struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-    int a, b, n;
-    cin >> a >> b >> n;
-    vector<bool> booking(1100);
+    int h, n;
+    cin >> h >> n;
+    vector<vector<bool>> room(h, vector<bool>(5, 1));
+    vector<vector<int>> dp(h, vector<int>(4));
     while(n--){
-        int l, r;
-        cin >> l >> r;
-        rep(i, l, r) booking[i] = 1;
+        int x, y;
+        cin >> x >> y;
+        room[h-y-1][x] = 0;
     }
-    rep(i, a, b) if(booking[i]){ cout << 1 << endl; return; }
-    cout << 0 << endl;
+    // 0: left
+    // 1: center
+    // 2: right
+    // 3: left / right
+    // 4: no box
+    rep(i,1,h){
+        if(room[i][0] && room[i][1] && room[i-1][0] && room[i-1][1]){
+            if(i == 1) dp[i][0] = 1;
+            else chmax(dp[i][0], max({dp[i-2][0], dp[i-2][1], dp[i-2][2], dp[i-2][3], dp[i-2][4], dp[i-1][2]}) + 1);
+        }
+        if(room[i][1] && room[i][2] && room[i-1][1] && room[i-1][2]){
+            if(i == 1) dp[i][1] = 1;
+            else chmax(dp[i][1], max({dp[i-2][0], dp[i-2][1], dp[i-2][2], dp[i-2][3], dp[i-2][4]}) + 1);
+        }
+        if(room[i][2] && room[i][3] && room[i-1][2] && room[i-1][3]){
+            if(i == 1) dp[i][2] = 1;
+            else chmax(dp[i][2], max({dp[i-2][0], dp[i-2][1], dp[i-2][2], dp[i-2][3], dp[i-2][4], dp[i-1][0]}) + 1);
+        }
+        if(room[i][0] && room[i][1] && room[i][2] && room[i][3] &&
+            room[i-1][0] && room[i-1][1] && room[i-1][2] && room[i-1][3]){
+            if(i == 1) dp[i][3] = 2;
+            else chmax(dp[i][3], max({dp[i-2][0], dp[i-2][1], dp[i-2][2], dp[i-2][3], dp[i-2][4]}) + 2);
+        }
+        if(i == 1) dp[i][4] = 0;
+        else dp[i][4] = max({dp[i-1][0], dp[i-1][1], dp[i-1][2], dp[i-1][3], dp[i-1][4]});
+    }
+    cout << max({dp[h-1][0], dp[h-1][1], dp[h-1][2], dp[h-1][3], dp[h-1][4]}) << endl;
 }
 
 signed main(){

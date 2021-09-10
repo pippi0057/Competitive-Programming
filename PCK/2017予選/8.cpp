@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 #define ll int64_t
@@ -30,15 +29,28 @@ struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 
 void Main(){
-    int x;
-    cin >> x;
-    if(x % 7 == 0) cout << "thu" << endl;
-    if(x % 7 == 1) cout << "fri" << endl;
-    if(x % 7 == 2) cout << "sat" << endl;
-    if(x % 7 == 3) cout << "sun" << endl;
-    if(x % 7 == 4) cout << "mon" << endl;
-    if(x % 7 == 5) cout << "tue" << endl;
-    if(x % 7 == 6) cout << "wed" << endl;
+    int w, h, n, ans = 999999999;
+    cin >> w >> h >> n;
+    vector<vector<int>> data(h);
+    multiset<int> X;
+    while(n--){
+        int x, y;
+        cin >> x >> y;
+        if(!x || !y) continue;
+        data[y].emplace_back(x);
+        X.insert(x);
+    }
+    if(!X.size()){ cout << 0 << endl; return; }
+    rep(h){
+        for(Auto& x : data[i]) X.erase(X.find(x));
+        if(!X.size()){
+            chmin(ans, i);
+            break;
+        }
+        auto itr = X.end(); itr--;
+        chmin(ans, *itr + i);
+    }
+    cout << ans << endl;
 }
 
 signed main(){
