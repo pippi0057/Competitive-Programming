@@ -45,6 +45,7 @@ struct UnionFind{
     ll root(ll a){ return data[a] < 0 ? a : data[a] = root(data[a]); }
     ll size(ll a){ return -data[root(a)]; }
     ll operator[](ll a){ return root(a); }
+    bool operator[](pair<int, int> a){ return find(a.first, a.second); }
 };
 
 bool compare(const pair<ll, pll> &a, const pair<ll, pll> &b){ return a.first < b.first; }
