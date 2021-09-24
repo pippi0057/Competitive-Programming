@@ -35,7 +35,9 @@ void Main(){
     cin >> n;
     vector a(n, 0), ans(n, 0);
     for(auto& x : a) cin >> x;
-    rep(n) ans[a[i]-1] = i + 1;
+    rep(n){
+        ans[a[i]-1] = i + 1;
+    }
     for(Auto& x : ans) cout << x << " ";
     cout << endl;
 }
