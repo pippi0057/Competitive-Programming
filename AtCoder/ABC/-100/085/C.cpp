@@ -30,7 +30,6 @@ template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } r
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
 template<class T> istream& operator>>(istream& is, vector<T>& a){ for(auto& x : a) is >> x; return is; }
-template<class T> void operator+=(vector<T>& a, T b){ a.push_back(b); return; }
 template<class T> istream& operator>>(istream& is, set<T>& a){ T input; is >> input; a.insert(input); return is; }
 struct sorted_impl{
     template<class T> friend vector<T> operator|(vector<T> a, sorted_impl){ sort(all(a)); return a; }
@@ -42,17 +41,13 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    string s; ll ans = 0;
-    cin >> s;
-    rep(bit, 1 << s.size() - 1){
-        vector<int> cut = {0};
-        vector<string> t;
-        rep(s.size() - 1) if(bit >> i & 1) cut += i + 1;
-        cut.push_back(s.size());
-        rep(cut.size() - 1) t.push_back(s.substr(cut[i], cut[i+1] - cut[i]));
-        for(Auto& x : t) ans += stoll(x);
+    int n, y;
+    cin >> n >> y;
+    rep(n + 1) rep(j, n + 1) if(0 <= (y - i * 10000 - j * 5000) / 1000 && (y - i * 10000 - j * 5000) / 1000 == n - i - j){
+        cout << i << " " << j << " " << n - i - j << endl;
+        return;
     }
-    cout << ans << endl;
+    cout << "-1 -1 -1" << endl;
 }
 
 signed main(){
