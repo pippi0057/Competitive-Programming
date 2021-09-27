@@ -42,17 +42,10 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    string s; ll ans = 0;
-    cin >> s;
-    rep(bit, 1 << (s.size() - 1)){
-        vector<int> cut = {0};
-        vector<string> t;
-        rep(s.size() - 1) if(bit >> i & 1) cut += i + 1;
-        cut.push_back(s.size());
-        rep(cut.size() - 1) t.push_back(s.substr(cut[i], cut[i+1] - cut[i]));
-        for(Auto& x : t) ans += stoll(x);
-    }
-    cout << ans << endl;
+    int a, b, c;
+    cin >> a >> b;
+    rep(i, a, b + 1) if(!(i % c)){ cout << i << endl; return; }
+    cout << -1 << endl;
 }
 
 signed main(){

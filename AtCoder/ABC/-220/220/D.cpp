@@ -41,18 +41,22 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
+using mint = modint998244353;
+
 void Main(){
-    string s; ll ans = 0;
-    cin >> s;
-    rep(bit, 1 << (s.size() - 1)){
-        vector<int> cut = {0};
-        vector<string> t;
-        rep(s.size() - 1) if(bit >> i & 1) cut += i + 1;
-        cut.push_back(s.size());
-        rep(cut.size() - 1) t.push_back(s.substr(cut[i], cut[i+1] - cut[i]));
-        for(Auto& x : t) ans += stoll(x);
+    int n;
+    cin >> n;
+    vector a(n, 0);
+    vector<vector<mint>> dp(n, vector<mint>(10));
+    cin >> a;
+    dp[0][a[0]] = 1;
+    rep(n - 1){
+        rep(j, 10){
+            dp[i+1][(j + a[i+1]) % 10] += dp[i][j];
+            dp[i+1][(j * a[i+1]) % 10] += dp[i][j];
+        }
     }
-    cout << ans << endl;
+    rep(10) cout << dp[n-1][i].val() << endl;
 }
 
 signed main(){

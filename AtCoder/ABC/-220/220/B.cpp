@@ -41,18 +41,15 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
+ll mow(ll x, ll n){ ll ret = 1; while(n > 0){ if(n & 1) ret = ret * x; x = x * x; n >>= 1; } return ret; }
+ll mow(ll x, ll n, ll mod){ ll ret = 1; while(n > 0){ if(n & 1) ret = ret * x % mod; x = x * x % mod; n >>= 1; } return ret; }
+
 void Main(){
-    string s; ll ans = 0;
-    cin >> s;
-    rep(bit, 1 << (s.size() - 1)){
-        vector<int> cut = {0};
-        vector<string> t;
-        rep(s.size() - 1) if(bit >> i & 1) cut += i + 1;
-        cut.push_back(s.size());
-        rep(cut.size() - 1) t.push_back(s.substr(cut[i], cut[i+1] - cut[i]));
-        for(Auto& x : t) ans += stoll(x);
-    }
-    cout << ans << endl;
+    ll k, A = 0, B = 0; string a, b;
+    cin >> k >> a >> b;
+    rrep(a.size()) A += (a[i] - '0') * mow(k, a.size() - i - 1);
+    rrep(b.size()) B += (b[i] - '0') * mow(k, b.size() - i - 1);
+    cout << A * B << endl;
 }
 
 signed main(){
