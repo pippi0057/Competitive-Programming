@@ -2,9 +2,10 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll int64_t
-#define u32 uint32_t
-#define u64 uint64_t
+#define ll long long int
+#define u32 unsigned int
+#define u64 unsigned long long int
+#define F function
 constexpr ll inf = 1e17;
 constexpr int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
 constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
@@ -42,22 +43,22 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    int n;
+    int n, ans = 0;
     cin >> n;
-    set<pii> a;
-    rep(n){
-        int x, y; bool ok = 1;
+    vector<pair<long double, long double>> a(n);
+    for(auto& [s, e] : a){
+        long double x, y;
         cin >> x >> y;
-        vector<pii> ng;
-        for(Auto& [px, py] : a){
-            if(px <= x && py <= y) ng += {px, py};
-            if(x <= px && y <= py) ok = 0;
-        }
-        for(auto& [px, py] : ng) a.erase({px, py});
-        if(ok) a.insert({x, y});
+        s = atan2(y - 1.0, x);
+        e = atan2(y, x - 1.0);
     }
-    cout << a.size() << endl;
-    for(auto& [x, y] : a) cout << x << " " << y << endl;
+    long double cur = 0.0;
+    sort(all(a), [](pair<long double, long double> a, pair<long double, long double> b){ return a.second < b.second; });
+    for(Auto& [s, e] : a){
+        if(s < cur) continue;
+        ans++; cur = e;
+    }
+    cout << ans << endl;
 }
 
 signed main(){
