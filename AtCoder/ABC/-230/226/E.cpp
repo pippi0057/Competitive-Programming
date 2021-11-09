@@ -80,8 +80,7 @@ void Main(){
         uf.unite(a, b);
         seen.insert(a); seen.insert(b);
     }
-    if(seen.size() != n) cout << 0 << endl;
-    else if(mow(2, cnt, 998244353) == 1) cout << 0 << endl;
+    if(seen.size() != n || mow(2, cnt, 998244353) == 1) cout << 0 << endl;
     else cout << mow(2, cnt, 998244353) << endl;
 }
 
