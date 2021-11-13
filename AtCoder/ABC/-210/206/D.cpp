@@ -11,6 +11,7 @@ constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
 #define pll pair<ll,ll>
 #define endl "\n"
+#define Auto const auto
 #define all(a) a.begin(),a.end()
 #define overload(_1,_2,_3,_4,name,...) name
 #define _rep1(n) for(int i = 0; i < (n); i++)
@@ -24,37 +25,50 @@ constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define _rrep4(i,a,b,c) for(int i = (b) - 1; i >= (a); i -= (c))
 #define rrep(...) overload(__VA_ARGS__,_rrep4,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
 #define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
-#define ForEach(a,b) for_each(a.begin(),a.end(),b)
-#define NextAfter(x) x = nextafter(x, INFINITY)
 template <class T> inline bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
 using Graph = vector<vector<Edge>>;
+template<class T> istream& operator>>(istream& is, vector<T>& a){ for(auto& x : a) is >> x; return is; }
+template<class T> void operator+=(vector<T>& a, T b){ a.push_back(b); return; }
+template<class T> istream& operator>>(istream& is, set<T>& a){ T input; is >> input; a.insert(input); return is; }
+struct sorted_impl{
+    template<class T> friend vector<T> operator|(vector<T> a, sorted_impl){ sort(all(a)); return a; }
+    template<class T> friend void operator|=(vector<T>& a, sorted_impl){ sort(all(a)); }
+} sorted;
+struct reversed_impl{
+    template<class T> friend vector<T> operator|(vector<T> a, reversed_impl){ reverse(all(a)); return a; }
+    template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
+} reversed;
+
+struct UnionFind{
+    vector<ll> data;
+    UnionFind(ll n): data(n, -1){}
+    bool unite(ll a, ll b){
+        a = root(a); b = root(b);
+        if(a == b) return 0;
+        if(data[a] > data[b]) swap(a, b);
+        data[a] += data[b];
+        data[b] = a;
+        return 1;
+    }
+    bool find(ll a, ll b){ return root(a) == root(b); }
+    ll root(ll a){ return data[a] < 0 ? a : data[a] = root(data[a]); }
+    ll size(ll a){ return -data[root(a)]; }
+    ll operator[](ll a){ return root(a); }
+    bool operator[](pair<int, int> a){ return find(a.first, a.second); }
+};
 
 void Main(){
-    int n, m = 10000000, s, cnt, ans = 0;
+    int n, ans = 0;
     cin >> n;
-    cnt = n;
     vector a(n, 0);
-    vector done(n, false);
-    vector<vector<int>> b(200200);
     for(auto& x : a) cin >> x;
-    rep(n){
-        if(a[i] != a[n-i-1]) b[a[i]].push_back(i);
-        else done[i] = 1, cnt--;
-    }
-    rep(200200) if(b[i].size()) if(chmin(m, int(b[i].size()))) s = i;
-    rep(200200){
-        if(i == s) continue;
-        if(b[i].size()){
-            for(auto x : b[i]){
-                a[x] = s;
-                if(a[x] == a[n-x-1]) done[x] = 1, cnt--;
-            }
-            ans++;
-        }
-        if(cnt <= 0) break;
-    }
+    UnionFind uf(2e5 + 10);
+    vector b = a | reversed;
+    vector done(2e5 + 10, false);
+    rep(n) if(a[i] != b[i]) uf.unite(a[i], b[i]);
+    rep(2e5 + 10) if(!done[uf[i]]) ans += uf.size(i) - 1, done[uf[i]] = 1;
     cout << ans << endl;
 }
 
