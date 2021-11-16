@@ -44,18 +44,7 @@ struct reversed_impl{
 void Main(){
     ll n, ans = 0;
     cin >> n;
-    rep(i, 1000, 10000) rep(j, i, 10010){
-        if(i * j > n) break;
-        ans += max((ll)0, n / (i * j) - j + 1);
-    }
-    rep(i, 100, 1000) rep(j, i, 100000){
-        if(i * j > n) break;
-        ans += max((ll)0, n / (i * j) - j + 1);
-    }
-    rep(i, 1, 100) rep(j, i, 1000000){
-        if(i * j > n) break;
-        ans += max((ll)0, n / (i * j) - j + 1);
-    }
+    rep(i, 1, 10000) rep(j, i, sqrt(n / i) + 10) ans += max((ll)0, n / (i * j) - j + 1);
     cout << ans << endl;
 }
 
