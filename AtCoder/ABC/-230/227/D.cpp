@@ -42,24 +42,17 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    int n, k; ll ans = inf;
+    int n, k; ll L = 0, R = inf;
     cin >> n >> k;
-    vector a(n, 0ll);
+    vector<ll> a(n);
     for(auto& x : a) cin >> x;
-    a |= sorted;
-    a |= reversed;
-    priority_queue<ll, vector<ll>, greater<ll>> data;
-    rep(k) data.push(a[i]);
-    rep(i, k, n){
-        ll now = data.top(); data.pop();
-        now += a[i];
-        data.push(now);
+    while(R - L > 1){
+        ll mid = (L + R) / 2, sum = 0;
+        for(Auto& x : a) sum += min(mid, x);
+        if(sum < k * mid) R = mid;
+        else L = mid;
     }
-    while(data.size()){
-        ll now = data.top(); data.pop();
-        chmin(ans, now);
-    }
-    cout << ans << endl;
+    cout << L << endl;
 }
 
 signed main(){
