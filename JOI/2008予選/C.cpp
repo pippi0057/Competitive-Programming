@@ -43,22 +43,29 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    int w, h, n;
-    cin >> w >> h >> n;
-    vector data(h, vector(w, -1));
-    data[0][0] = 1;
-    while(n--){
-        int x, y;
-        cin >> y >> x;
-        data[x - 1][y - 1] = 0;
+    int n, now = -1; bool Taro = 1;
+    cin >> n;
+    vector a(2 * n, 2), ans(3, 0);
+    rep(n){
+        int x;
+        cin >> x;
+        a[x - 1] = 1;
     }
-    rep(h) rep(j, w) if(!(data[i][j] + 1)){
-        data[i][j] = 0;
-        if(i > 0) data[i][j] += data[i - 1][j];
-        if(j > 0) data[i][j] += data[i][j - 1];
-        chmax(data[i][j], 0);
+    while(1){
+        bool ok = 0;
+        if(Taro){
+            rep(2 * n) if(a[i] == 1 && i > now){ a[i] = 0, now = i, ok = 1; break; }
+            Taro = 0;
+        }else{
+            rep(2 * n) if(a[i] == 2 && i > now){ a[i] = 0, now = i, ok = 1; break; }
+            Taro = 1;
+        }
+        for(auto& x : a) ans[x]++;
+        if(ans[1] && ans[2]) ans[1] = 0, ans[2] = 0;
+        else break;
+        if(!ok) now = -1;
     }
-    cout << data[h - 1][w - 1] << endl;
+    rrep(i, 1, 3) cout << ans[i] << endl;
 }
 
 signed main(){
