@@ -56,8 +56,7 @@ vector<pair<char, ll>> encode(const string& str) {
 void Main(){
     int n; ll ans = 0; string s;
     cin >> n >> s;
-    auto data = encode(s);
-    for(Auto& [x, y] : data) ans += y * (y - 1) / 2;
+    for(Auto& [x, y] : encode(s)) ans += y * (y - 1) / 2;
     cout << ans << endl;
 }
 
