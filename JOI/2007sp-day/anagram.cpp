@@ -32,6 +32,7 @@ using Graph = vector<vector<Edge>>;
 template<class T> istream& operator>>(istream& is, vector<T>& a){ for(auto& x : a) is >> x; return is; }
 template<class T> void operator+=(vector<T>& a, T b){ a.push_back(b); return; }
 template<class T> istream& operator>>(istream& is, set<T>& a){ T input; is >> input; a.insert(input); return is; }
+template<class T> void operator+=(set<T>& a, T b){ a.insert(b); return; }
 struct sorted_impl{
     template<class T> friend vector<T> operator|(vector<T> a, sorted_impl){ sort(all(a)); return a; }
     template<class T> friend void operator|=(vector<T>& a, sorted_impl){ sort(all(a)); }
@@ -41,33 +42,24 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
-namespace RLC{
-    vector<pair<char, ll>> encode(const string& s){
-        int n = (int)s.size();
-        vector<pair<char, ll>> ret;
-        for(ll l = 0; l < n;){
-            ll r = l + 1;
-            for (; r < n && s[l] == s[r]; r++) {};
-            ret.push_back({s[l], r - l});
-            l = r;
-        }
-        return ret;
-    }
-    string decode(const vector<pair<char, ll>>& c){
-        string ret = "";
-        for(auto [x, p] : c){
-            for(int i = 0; i < p; i++){
-                ret.push_back(x);
-            }
-        }
-        return ret;
-    }
-}
-
 void Main(){
-    int n; ll ans = 0; string s;
-    cin >> n >> s;
-    for(Auto& [x, y] : RLC::encode(s)) ans += y * (y - 1) / 2;
+    string s;
+    cin >> s;
+    vector<ll> fact(21, 1);
+    rep(i, 1, 21) fact[i] *= fact[i - 1] * i;
+    vector num(26, 0ll);
+    rep(s.size()) num[s[i] - 'A']++;
+    ll ans = 1;
+    rep(s.size()){
+        rep(c, s[i] - 'A') if(num[c]){
+            num[c]--;
+            ll temp = fact[s.size() - i - 1];
+            rep(j, 26) temp /= fact[num[j]];
+            ans += temp;
+            num[c]++;
+        }
+        num[s[i] - 'A']--;
+    }
     cout << ans << endl;
 }
 
