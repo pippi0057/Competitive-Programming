@@ -2,7 +2,7 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll int64_t
+#define ll long long int
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
@@ -24,7 +24,7 @@ constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
 #define _rrep4(i,a,b,c) for(int i = (b) - 1; i >= (a); i -= (c))
 #define rrep(...) overload(__VA_ARGS__,_rrep4,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
-#define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
+#define F function
 template <class T> inline bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
@@ -42,22 +42,25 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
-map<pair<int, ll>, ll> memo;
+map<ll, ll> memo;
 
-ll dfs(int i, ll x, const vector<ll>& a){
-    if(i == a.size() - 1) return x;
-    ll k = x / a[i];
-    if(memo[{i, x}]) return memo[{i, x}];
-    return memo[{i, x}] = min(dfs(i + 1, x % a[i], a) + k, dfs(i + 1, ((k + 1) * a[i] - x) % a[i], a) + k + 1);
+ll dfs(const vector<ll>& a, ll x){
+    if(!x) return 0;
+    int n = a.size();
+    if(memo.find(x) != memo.end()) return memo[x];
+    rrep(n) if(!(x % a[i])){
+        if(i == n - 1) return memo[x] = x / a[i];
+        return min(dfs(a, x - x % a[i + 1]) + (x % a[i + 1]) / a[i],
+            dfs(a, x + a[i + 1] - x % a[i + 1]) + (a[i + 1] - x % a[i + 1]) / a[i]);
+    }
 }
 
 void Main(){
-    int n; ll x, ans = 0;
+    int n; ll x;
     cin >> n >> x;
     vector<ll> a(n);
-    for(auto& y : a) cin >> y;
-    a |= reversed;
-    cout << dfs(0, x, a) << endl;
+    for(auto& x : a) cin >> x;
+    cout << dfs(a, x) << endl;
 }
 
 signed main(){
