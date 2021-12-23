@@ -2,7 +2,7 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll long long int
+#define ll int64_t
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
@@ -42,20 +42,14 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
+using mint = modint1000000007;
+
 void Main(){
-    ll n, ans = 0;
-    cin >> n;
-    rep(i, 1, 20){
-        string s, t;
-        rep(j, i) s += "1", t += "1";
-        t[s.size() - 1] = '2';
-        rep(j, 20){
-            if(s.size() > 17) break;
-            if(stoll(s) <= n) ans += min(stoll(t), n + 1) - stoll(s);
-            s += "0"; t += "0";
-        }
-    }
-    cout << ans << endl;
+    int n; cin >> n;
+    vector a(n, 0), dp_plus(n, mint(0)), dp_minus(n, mint(0));
+    cin >> a;
+    dp_plus[1] = dp_minus[1] = 1;
+    
 }
 
 signed main(){

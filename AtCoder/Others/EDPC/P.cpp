@@ -2,7 +2,7 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll long long int
+#define ll int64_t
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
@@ -42,20 +42,30 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
+using mint = modint1000000007;
+
 void Main(){
-    ll n, ans = 0;
-    cin >> n;
-    rep(i, 1, 20){
-        string s, t;
-        rep(j, i) s += "1", t += "1";
-        t[s.size() - 1] = '2';
-        rep(j, 20){
-            if(s.size() > 17) break;
-            if(stoll(s) <= n) ans += min(stoll(t), n + 1) - stoll(s);
-            s += "0"; t += "0";
-        }
+    int n; cin >> n;
+    vector seen(n, false);
+    vector<vector<int>> g(n);
+    vector dp(n, vector(2, mint(0)));
+    rep(n - 1){
+        int a, b;
+        cin >> a >> b;
+        a--; b--;
+        g[a] += b; g[b] += a;
     }
-    cout << ans << endl;
+    auto dfs = [&g, &seen, &dp](auto& self, int i) -> void {
+        seen[i] = true;
+        dp[i][0] = dp[i][1] = 1;
+        for(Auto& j : g[i]){
+            if(seen[j]) continue;
+            self(self, j);
+            dp[i][0] *= dp[j][0] + dp[j][1];
+            dp[i][1] *= dp[j][0];
+        }
+    }; dfs(dfs, 0);
+    cout << (dp[0][0] + dp[0][1]).val() << endl;
 }
 
 signed main(){
