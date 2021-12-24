@@ -1,11 +1,19 @@
 namespace CumulativeSum{
+    template <class T> struct CumulativeVector{
+        vector<T> a;
+        CumulativeVector(int n) : a(n, 0) {}
+        CumulativeVector(vector<T> v){ a = v; }
+        void build(){ for(int i = 1; i < a.size(); i++) a[i] += a[i-1]; }
+        T& operator [](int ind){ return a[ind]; }
+        operator vector<T>&() const{ return a; }
+    };
     template <class T> struct imos1D{
         vector<T> a;
         imos1D(int n) : a(n, 0) {}
         void add(int l, int r, int x){ a[l] += x; a[r] -= x; }
         void build(){ for(int i = 1; i < a.size(); i++) a[i] += a[i-1]; }
         T operator[](int ind){ return a[ind]; }
-        operator const vector<T>&() const{ return a; } 
+        operator const vector<T>&() const{ return a; }
     };
     template <class T> struct imos2D{
         vector<vector<T>> a;
