@@ -24,14 +24,15 @@ constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
 #define _rrep4(i,a,b,c) for(int i = (b) - 1; i >= (a); i -= (c))
 #define rrep(...) overload(__VA_ARGS__,_rrep4,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
-#define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
+#define F function
 template <class T> inline bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
-using Graph = vector<vector<int>>;
+using Graph = vector<vector<Edge>>;
 template<class T> istream& operator>>(istream& is, vector<T>& a){ for(auto& x : a) is >> x; return is; }
 template<class T> void operator+=(vector<T>& a, T b){ a.push_back(b); return; }
 template<class T> istream& operator>>(istream& is, set<T>& a){ T input; is >> input; a.insert(input); return is; }
+template<class T> void operator+=(set<T>& a, T b){ a.insert(b); return; }
 struct sorted_impl{
     template<class T> friend vector<T> operator|(vector<T> a, sorted_impl){ sort(all(a)); return a; }
     template<class T> friend void operator|=(vector<T>& a, sorted_impl){ sort(all(a)); }
@@ -42,44 +43,37 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    int m, ans = 999999999;
-    cin >> m;
-    Graph g(9);
+    int m; cin >> m;
+    vector<vector<int>> g(10);
+    map<string, int> mp;
+    string place = "999999999";
+    queue<string> task;
     while(m--){
-        int a, b;
-        cin >> a >> b;
-        a--; b--;
-        g[a] += b; g[b] += a;
+        int u, v;
+        cin >> u >> v;
+        g[u - 1] += v - 1;
+        g[v - 1] += u - 1;
     }
-    map<string, int> data;
-    string now, fin = "123456789";
-    do{ data[fin] = 999999999; }while(next_permutation(all(fin)));
-    rep(8){
-        char input;
-        cin >> input;
-        now += input;
+    rep(i, 49, 57){
+        int p; cin >> p;
+        place[p - 1] = i;
     }
-    char C = '1' ^ '2' ^ '3' ^ '4' ^ '5' ^ '6' ^ '7' ^ '8' ^ '9';
-    rep(8) C ^= now[i];
-    now += C;
-    set<string> seen;
-    function<void(string, int)> dfs = [&](string now, int cnt){
-        if(now == fin){
-            chmin(ans, cnt);
-            return;
-        }
-        if(!chmin(data[now], cnt)) return;
-        string prev = now;
-        rep(8){
-            for(Auto& x : g[now[i] - '1']) if(now[8] - 1 == x + '0'){
-                swap(now[i], now[8]);
-                dfs(now, data[prev] + 1);
-                swap(now[i], now[8]);
+    mp[place] = 0;
+    task.push(place);
+    while(task.size()){
+        string now, next;
+        now = next = task.front(); task.pop();
+        rep(9) if(now[i] == '9') for(Auto& x : g[i]){
+            swap(next[i], next[x]);
+            if(!mp.count(next)){
+                task.push(next);
+                mp[next] = mp[now] + 1;
             }
+            swap(next[i], next[x]);
         }
-        return;
-    }; dfs(now, 0);
-    cout << (ans - 999999999 ? ans : -1) << endl;
+    }
+    if(mp.count("123456789")) cout << mp["123456789"] << endl;
+    else cout << -1 << endl;
 }
 
 signed main(){
