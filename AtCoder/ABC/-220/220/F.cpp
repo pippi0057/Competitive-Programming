@@ -2,7 +2,7 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll int64_t
+#define ll long long int
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
@@ -24,7 +24,7 @@ constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
 #define _rrep4(i,a,b,c) for(int i = (b) - 1; i >= (a); i -= (c))
 #define rrep(...) overload(__VA_ARGS__,_rrep4,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
-#define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
+#define F function
 template <class T> inline bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
 template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
 struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
@@ -32,6 +32,7 @@ using Graph = vector<vector<Edge>>;
 template<class T> istream& operator>>(istream& is, vector<T>& a){ for(auto& x : a) is >> x; return is; }
 template<class T> void operator+=(vector<T>& a, T b){ a.push_back(b); return; }
 template<class T> istream& operator>>(istream& is, set<T>& a){ T input; is >> input; a.insert(input); return is; }
+template<class T> void operator+=(set<T>& a, T b){ a.insert(b); return; }
 struct sorted_impl{
     template<class T> friend vector<T> operator|(vector<T> a, sorted_impl){ sort(all(a)); return a; }
     template<class T> friend void operator|=(vector<T>& a, sorted_impl){ sort(all(a)); }
@@ -41,39 +42,30 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
-vector<ll> dijkstra(const Graph &g, int s){
-    int n = g.size();
-    vector<ll> dist(n, inf);
-    priority_queue<pair<ll,int>,vector<pair<ll,int>>,greater<pair<ll,int>>> task;
-    dist[s] = 0;
-    task.push({dist[s], s});
-    while(task.size()){
-        pii p = task.top();
-        task.pop();
-        int v = p.second;
-        if(dist[v] < p.first) continue;
-        for(auto e : g[v])
-            if(chmin(dist[e.to], dist[v] + e.cost)) task.push({dist[e.to], e.to});
-    }
-    return dist;
-}
-
 void Main(){
-    int n;
-    cin >> n;
-    Graph g(n);
-    rep(n){
-        int a, b;
-        cin >> a >> b;
-        a--; b--;
-        g[a].push_back({b, 1});
+    int n; cin >> n;
+    vector<vector<int>> g(n), dp(n);
+    vector<int> ans(n, 0);
+    rep(n - 1){
+        int u, v; cin >> u >> v;
+        g[u - 1].emplace_back(v - 1);
+        g[v - 1].emplace_back(u - 1);
     }
-    
+    auto dfs = [g, &dp](auto& self, int i, int prev = -1) -> int{
+        int res = 0;
+        dp[i].resize(g[i].size(), 0);
+        rep(j, g[i].size()){
+            if(prev == g[i][j]) continue;
+            dp[i][j] = self(self, g[i][j], i) + 1;
+            res += dp[i][j];
+        }
+        return res;
+    };
+    cout << dfs(dfs, 0, -1) << endl;
 }
 
 signed main(){
-    cin.tie(0);
-    ios::sync_with_stdio(0);
+    cin.tie(0)->sync_with_stdio(false);
     cout << setprecision(10) << fixed;
     Main();
 }
