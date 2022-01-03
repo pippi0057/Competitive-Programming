@@ -43,21 +43,16 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    int n; string s;
-    cin >> n >> s;
-    vector white(n, 0), black(n, 0);
-    rep(n){
-        if(s[i] == '#') black[i] = 1;
-        else white[i] = 1;
+    string S; cin >> S;
+    if(S > "atcoder"){ cout << 0 << endl; return; }
+    rep(S.size()) if(S[i] != 'a'){
+        
     }
-    rep(i, 1, n) white[i] += white[i - 1], black[i] += black[i - 1];
-    int ans = white[n - 1];
-    rep(n) chmin(ans, black[i] + white[n - 1] - white[i]);
-    cout << ans << endl;
 }
 
 signed main(){
     cin.tie(0)->sync_with_stdio(false);
     cout << setprecision(10) << fixed;
-    Main();
+    int T; cin >> T;
+    while(T--) Main();
 }
