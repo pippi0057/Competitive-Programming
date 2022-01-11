@@ -55,10 +55,7 @@ void Main(){
     cout << ans << endl;
     rep(i, K, N){
         data.insert(P[i]);
-        if(ans < P[i]){
-            auto itr = data.upper_bound(ans);
-            ans = *itr;
-        }
+        if(ans < P[i]) ans = *data.upper_bound(ans);
         cout << ans << endl;
     }
 }

@@ -49,7 +49,7 @@ void Main(){
         ans += N % 2 + 48;
         N /= 2;
     }
-    for(auto& x : ans) if(x == '1') x = '2';
+    for(auto& x : ans) if(x == 49) x = 50;
     reverse(all(ans));
     cout << ans << endl;
 }
