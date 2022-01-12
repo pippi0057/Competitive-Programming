@@ -3,13 +3,15 @@
 using namespace std;
 using namespace atcoder;
 #define ll int64_t
-const int inf_int = 1e9;
-const ll inf = 1e17;
-const int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
-const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
+#define u32 uint32_t
+#define u64 uint64_t
+constexpr ll inf = 1e17;
+constexpr int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
+constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
 #define pll pair<ll,ll>
 #define endl "\n"
+#define Auto const auto
 #define all(a) a.begin(),a.end()
 #define overload(_1,_2,_3,_4,name,...) name
 #define _rep1(n) for(int i = 0; i < (n); i++)
@@ -22,72 +24,58 @@ const int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define _rrep3(i,a,b) for(int i = (b) - 1; i >= (a); i--)
 #define _rrep4(i,a,b,c) for(int i = (b) - 1; i >= (a); i -= (c))
 #define rrep(...) overload(__VA_ARGS__,_rrep4,_rrep3,_rrep2,_rrep1)(__VA_ARGS__)
-#define vec(type,name,...) vector<type> name(__VA_ARGS__)
-#define vv(type,name,size,...) vector<vector<type>> name(size,vector<type>(__VA_ARGS__))
-#define ForEach(a,b) for_each(a.begin(),a.end(),b)
-#define NextAfter(x) x = nextafter(x, INFINITY)
-template <class T> bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
-template <class T> bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
+#define F function
+template <class T> inline bool chmin(T& a, T b){ if(a > b){ a = b; return 1; } return 0; }
+template <class T> inline bool chmax(T& a, T b){ if(a < b){ a = b; return 1; } return 0; }
+struct Edge { int to; ll cost; Edge(int to, ll cost) : to(to), cost(cost) {} };
+using Graph = vector<vector<Edge>>;
+template<class T> istream& operator>>(istream& is, vector<T>& a){ for(auto& x : a) is >> x; return is; }
+template<class T> void operator+=(vector<T>& a, T b){ a.push_back(b); return; }
+template<class T> istream& operator>>(istream& is, set<T>& a){ T input; is >> input; a.insert(input); return is; }
+template<class T> void operator+=(set<T>& a, T b){ a.insert(b); return; }
+struct sorted_impl{
+    template<class T> friend vector<T> operator|(vector<T> a, sorted_impl){ sort(all(a)); return a; }
+    template<class T> friend void operator|=(vector<T>& a, sorted_impl){ sort(all(a)); }
+} sorted;
+struct reversed_impl{
+    template<class T> friend vector<T> operator|(vector<T> a, reversed_impl){ reverse(all(a)); return a; }
+    template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
+} reversed;
 
 void Main(){
-    int h, w, sx, sy, gx, gy;
-    cin >> h >> w >> sx >> sy >> gx >> gy;
-    sx--; sy--; gx--; gy--;
-    vector maze(h, vector(w, false));
-    vector ans(h, vector(w, inf_int));
-    rep(h) rep(j,w){
-        char input;
-        cin >> input;
-        maze[i][j] = (input == '#');
+    int H, W, sh, sw, gh, gw;
+    cin >> H >> W >> sh >> sw >> gh >> gw;
+    sh--; sw--; gh--; gw--;
+    vector maze(H, vector(W, false));
+    vector ans(H, vector(W, inf));
+    rep(H) rep(j, W){
+        char input; cin >> input;
+        maze[i][j] = input == '#';
     }
-    queue<pii> task;
-    task.push({sx, sy});
-    auto ok = [maze, h, w](int x, int y) -> bool{
-        if(x < 0 || h <= x) return 0;
-        if(y < 0 || w <= y) return 0;
-        if(maze[x][y]) return 0;
-        return 1;
-    };
-    for(int count = 0; ; count++){
-        vector<pii> sub, sub2;
-        while(task.size()){
-            auto [fx, fy] = task.front();
-            task.pop();
-            if(ans[fx][fy] == inf_int){
-                ans[fx][fy] = count;
-                sub.push_back({fx, fy});
-            }
-            rep(4){
-                int nx = fx + dx[i], ny = fy + dy[i];
-                if(ok(nx, ny) && ans[nx][ny] == inf_int){
-                    ans[nx][ny] = count;
-                    task.push({nx, ny});
-                    sub.push_back({nx, ny});
-                }
-            }
+    deque<pii> task;
+    task.push_front({sh, sw});
+    ans[sh][sw] = 0;
+    while(task.size()){
+        auto [h, w] = task.front(); task.pop_front();
+        rep(4){
+            int nh = h + dx[i], nw = w + dy[i];
+            if(nh < 0 || nw < 0 || H <= nh || W <= nw || maze[nh][nw]) continue;
+            if(chmin(ans[nh][nw], ans[h][w])) task.push_front({nh, nw});
         }
-        for(auto [fx, fy] : sub){
-            for(int i = -2; i <= 2; i++) for(int j = -2; j <= 2; j++){
-                int nx = fx + i, ny = fy + j;
-                if(ok(nx, ny) && ans[nx][ny] == inf_int){
-                    task.push({nx, ny});
-                    ans[nx][ny] = count + 1;
-                    sub2.push_back({nx, ny});
-                }
-            }
+        rep(i, -2, 3) rep(j, -2, 3) if(i || j){
+            if(i == 0 && (j == 1 || j == -1)) continue;
+            if(j == 0 && (i == 1 || i == -1)) continue;
+            int nh = h + i, nw = w + j;
+            if(nh < 0 || nw < 0 || H <= nh || W <= nw || maze[nh][nw]) continue;
+            if(chmin(ans[nh][nw], ans[h][w] + 1)) task.push_back({nh, nw});
         }
-        sub.clear();
-        sub = sub2;
-        sub2.clear();
-        if(ans[gx][gy] != inf_int) break;
-        if(count == 1000000){ cout << -1 << endl; return; }
     }
-    cout << ans[gx][gy] << endl;
+    if(ans[gh][gw] - inf) cout << ans[gh][gw] << endl;
+    else cout << -1 << endl;
 }
 
 signed main(){
-    cin.tie(0);
-    ios::sync_with_stdio(false);
+    cin.tie(0)->sync_with_stdio(false);
     cout << setprecision(10) << fixed;
     Main();
 }
