@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
-#include <atcoder/all>
 using namespace std;
-using namespace atcoder;
-#define ll int64_t
+#define ll long long int
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
@@ -43,7 +41,18 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    
+    int N; cin >> N;
+    vector A(N, 0), B(N - 1, 0);
+    for(auto& x : A) cin >> x;
+    rep(N - 1) B[i] = A[i + 1] - A[i];
+    vector plus(N, 0ll), minus(N, 0ll);
+    rep(N - 1){
+        plus[i + 1] = (B[i] <= 0 ? -1 * B[i] + 1 : 0) + plus[i];
+        minus[i + 1] = (B[i] < 0 ? 0 : B[i] + 1) + minus[i];
+    }
+    ll ans = inf;
+    rep(N) chmin(ans, max(plus[i], minus[N - 1] - minus[i]));
+    cout << ans << endl;
 }
 
 signed main(){

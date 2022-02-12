@@ -2,7 +2,7 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll int64_t
+#define ll long long int
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
@@ -43,6 +43,7 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
+    int N, Q; cin >> N >> Q;
     
 }
 
