@@ -43,7 +43,9 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    
+    ll X; cin >> X;
+    if(X > 0) cout << X / 10 << endl;
+    else cout << (X - 9) / 10 << endl;
 }
 
 signed main(){

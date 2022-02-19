@@ -43,7 +43,8 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    
+    double X; cin >> X;
+    cout << sqrt(X * (12800000 + X)) << endl;
 }
 
 signed main(){

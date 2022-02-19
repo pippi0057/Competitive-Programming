@@ -42,8 +42,26 @@ struct reversed_impl{
     template<class T> friend void operator|=(vector<T>& a, reversed_impl){ reverse(all(a)); }
 } reversed;
 
+bool is_prime(int n){
+    if (n < 2) return 0;
+    else if (n == 2) return 1;
+    else if (n % 2 == 0) return 0;
+    for(int i = 3; i * i <= n; i += 2) if(n % i == 0) return 0;
+    return 1;
+}
+
 void Main(){
-    
+    int A, B, C, D;
+    cin >> A >> B >> C >> D;
+    rep(i, A, B + 1){
+        bool ok = true;
+        rep(j, C, D + 1) if(is_prime(i + j)) ok = false;
+        if(ok){
+            cout << "Takahashi" << endl;
+            return;
+        }
+    }
+    cout << "Aoki" << endl;
 }
 
 signed main(){

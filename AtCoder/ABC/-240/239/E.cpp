@@ -43,7 +43,31 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    
+    int N, Q; cin >> N >> Q;
+    vector X(N, 0);
+    vector<vector<int>> g(N), data(N, vector(20, 0));
+    for(auto& x : X) cin >> x;
+    rep(N - 1){
+        int A, B; cin >> A >> B;
+        g[A - 1].emplace_back(B - 1);
+        g[B - 1].emplace_back(A - 1);
+    }
+    auto dfs = [g, X, &data](auto& self, int i, int p = -1) -> void {
+        vector<int> tmp = {X[i]};
+        for(Auto& x : g[i]){
+            if(x == p) continue;
+            self(self, x, i);
+            for(Auto& y : data[x]) tmp.emplace_back(y);
+        }
+        { int j = 0; for(Auto& x : tmp | sorted | reversed){
+            data[i][j] = x;
+            if(++j == 20) break;
+        }}
+    }; dfs(dfs, 0);
+    while(Q--){
+        int V, K; cin >> V >> K;
+        cout << data[V - 1][K - 1] << endl;
+    }
 }
 
 signed main(){

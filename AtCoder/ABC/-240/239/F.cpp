@@ -2,10 +2,12 @@
 #include <atcoder/all>
 using namespace std;
 using namespace atcoder;
-#define ll long long int
+#define ll int64_t
 #define u32 uint32_t
 #define u64 uint64_t
 constexpr ll inf = 1e17;
+constexpr int dx[] = {0, 1, 0, -1, 1, 1, -1, -1};
+constexpr int dy[] = {1, 0, -1, 0, 1, -1, 1, -1};
 #define pii pair<int,int>
 #define pll pair<ll,ll>
 #define endl "\n"
@@ -41,13 +43,8 @@ struct reversed_impl{
 } reversed;
 
 void Main(){
-    int x1, y1, x2, y2;
-    bool ans = false;
-    cin >> x1 >> y1 >> x2 >> y2;
-    vector<int> dx = {1, 1, 2, 2, -1, -1, -2, -2};
-    vector<int> dy = {2, -2, 1, -1, 2, -2, 1, -1};
-    rep(8) rep(j, 8) if(x1 + dx[i] == x2 + dx[j] && y1 + dy[i] == y2 + dy[j]) ans = true;
-    cout << (ans ? "Yes" : "No") << endl;
+    int N, M; cin >> N >> M;
+    
 }
 
 signed main(){
