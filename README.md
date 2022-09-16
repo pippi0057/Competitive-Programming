@@ -1,10 +1,8 @@
 # 競プロの提出コード
 
-草生やす用
+競プロの提出コード、ライブラリをまとめています。
 
-昔に解いたやつはマクロが意味不明なことになってる可能性アリ
-
-ライブラリも少しずつ増やす
+コミットメッセージがかなり意味不明なものがありますが気にしないでください。
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/pippi-sniper/Competitive-Programming)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pippi-sniper/Competitive-Programming)
